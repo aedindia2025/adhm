@@ -1,0 +1,10 @@
+[19-Apr-2022 17:36:52 Asia/Kolkata] PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'device_id' in 'field list' in /home/fv0qhpr8lzrr/public_html/jobcard/config/dbclass.php:582
+Stack trace:
+#0 /home/fv0qhpr8lzrr/public_html/jobcard/config/dbclass.php(582): PDOStatement->execute()
+#1 /home/fv0qhpr8lzrr/public_html/jobcard/folders/user/crud.php(123): db->insert('user', Array)
+#2 {main}
+[19-Apr-2022 17:37:50 Asia/Kolkata] PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'device_id' in 'field list' in /home/fv0qhpr8lzrr/public_html/jobcard/config/dbclass.php:582
+Stack trace:
+#0 /home/fv0qhpr8lzrr/public_html/jobcard/config/dbclass.php(582): PDOStatement->execute()
+#1 /home/fv0qhpr8lzrr/public_html/jobcard/folders/user/crud.php(123): db->insert('user', Array)
+#2 {main}

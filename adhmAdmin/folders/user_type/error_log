@@ -1,0 +1,30 @@
+[15-Nov-2023 14:40:45 Asia/Kolkata] PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AS a  WHERE is_delete = 0' at line 1 in /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php:302
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php(302): PDOStatement->execute()
+#1 /home/t35cn7grvyxc/public_html/adhm/folders/user_type/crud.php(173): db->select()
+#2 {main}
+[15-Nov-2023 14:40:51 Asia/Kolkata] PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AS a  WHERE is_delete = 0' at line 1 in /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php:302
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php(302): PDOStatement->execute()
+#1 /home/t35cn7grvyxc/public_html/adhm/folders/user_type/crud.php(173): db->select()
+#2 {main}
+[15-Nov-2023 14:41:04 Asia/Kolkata] PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AS a  WHERE is_delete = 0' at line 1 in /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php:302
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php(302): PDOStatement->execute()
+#1 /home/t35cn7grvyxc/public_html/adhm/folders/user_type/crud.php(173): db->select()
+#2 {main}
+[15-Nov-2023 14:41:33 Asia/Kolkata] PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AS a  WHERE is_delete = 0' at line 1 in /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php:302
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php(302): PDOStatement->execute()
+#1 /home/t35cn7grvyxc/public_html/adhm/folders/user_type/crud.php(173): db->select()
+#2 {main}
+[15-Nov-2023 14:41:39 Asia/Kolkata] PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AS a  WHERE is_delete = 0' at line 1 in /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php:302
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php(302): PDOStatement->execute()
+#1 /home/t35cn7grvyxc/public_html/adhm/folders/user_type/crud.php(173): db->select()
+#2 {main}
+[15-Nov-2023 14:42:33 Asia/Kolkata] PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AS a  WHERE is_delete = 0' at line 1 in /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php:302
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php(302): PDOStatement->execute()
+#1 /home/t35cn7grvyxc/public_html/adhm/folders/user_type/crud.php(173): db->select()
+#2 {main}

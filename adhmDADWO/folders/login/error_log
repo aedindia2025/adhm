@@ -1,0 +1,356 @@
+[19-Apr-2022 16:57:47 Asia/Kolkata] PDOException: SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: NO) in /home/fv0qhpr8lzrr/public_html/jobcard/config/dbclass.php:48
+Stack trace:
+#0 /home/fv0qhpr8lzrr/public_html/jobcard/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'root', '', Array)
+#1 /home/fv0qhpr8lzrr/public_html/jobcard/config/dbconfig.php(33): db->__construct('mysql', 'localhost', 'root', '', 'jobcard')
+#2 /home/fv0qhpr8lzrr/public_html/jobcard/folders/login/crud.php(10): include('/home/fv0qhpr8l...')
+#3 {main}
+[19-Apr-2022 16:57:51 Asia/Kolkata] PDOException: SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: NO) in /home/fv0qhpr8lzrr/public_html/jobcard/config/dbclass.php:48
+Stack trace:
+#0 /home/fv0qhpr8lzrr/public_html/jobcard/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'root', '', Array)
+#1 /home/fv0qhpr8lzrr/public_html/jobcard/config/dbconfig.php(33): db->__construct('mysql', 'localhost', 'root', '', 'jobcard')
+#2 /home/fv0qhpr8lzrr/public_html/jobcard/folders/login/crud.php(10): include('/home/fv0qhpr8l...')
+#3 {main}
+[19-Apr-2022 16:57:52 Asia/Kolkata] PDOException: SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: NO) in /home/fv0qhpr8lzrr/public_html/jobcard/config/dbclass.php:48
+Stack trace:
+#0 /home/fv0qhpr8lzrr/public_html/jobcard/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'root', '', Array)
+#1 /home/fv0qhpr8lzrr/public_html/jobcard/config/dbconfig.php(33): db->__construct('mysql', 'localhost', 'root', '', 'jobcard')
+#2 /home/fv0qhpr8lzrr/public_html/jobcard/folders/login/crud.php(10): include('/home/fv0qhpr8l...')
+#3 {main}
+[19-Apr-2022 17:03:52 Asia/Kolkata] PDOException: SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: NO) in /home/fv0qhpr8lzrr/public_html/jobcard/config/dbclass.php:48
+Stack trace:
+#0 /home/fv0qhpr8lzrr/public_html/jobcard/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'root', '', Array)
+#1 /home/fv0qhpr8lzrr/public_html/jobcard/config/dbconfig.php(33): db->__construct('mysql', 'localhost', 'root', '', 'jobcard')
+#2 /home/fv0qhpr8lzrr/public_html/jobcard/folders/login/crud.php(10): include('/home/fv0qhpr8l...')
+#3 {main}
+[19-Apr-2022 17:03:53 Asia/Kolkata] PDOException: SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: NO) in /home/fv0qhpr8lzrr/public_html/jobcard/config/dbclass.php:48
+Stack trace:
+#0 /home/fv0qhpr8lzrr/public_html/jobcard/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'root', '', Array)
+#1 /home/fv0qhpr8lzrr/public_html/jobcard/config/dbconfig.php(33): db->__construct('mysql', 'localhost', 'root', '', 'jobcard')
+#2 /home/fv0qhpr8lzrr/public_html/jobcard/folders/login/crud.php(10): include('/home/fv0qhpr8l...')
+#3 {main}
+[19-Apr-2022 17:04:07 Asia/Kolkata] PDOException: SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: NO) in /home/fv0qhpr8lzrr/public_html/jobcard/config/dbclass.php:48
+Stack trace:
+#0 /home/fv0qhpr8lzrr/public_html/jobcard/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'root', '', Array)
+#1 /home/fv0qhpr8lzrr/public_html/jobcard/config/dbconfig.php(33): db->__construct('mysql', 'localhost', 'root', '', 'jobcard')
+#2 /home/fv0qhpr8lzrr/public_html/jobcard/folders/login/crud.php(10): include('/home/fv0qhpr8l...')
+#3 {main}
+[19-Apr-2022 17:05:33 Asia/Kolkata] PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'jobcard.user_screen_permission' doesn't exist in /home/fv0qhpr8lzrr/public_html/jobcard/config/dbclass.php:302
+Stack trace:
+#0 /home/fv0qhpr8lzrr/public_html/jobcard/config/dbclass.php(302): PDOStatement->execute()
+#1 /home/fv0qhpr8lzrr/public_html/jobcard/config/common_fun.php(498): db->select(Array, Array, '', '', '', '', ' screen_unique_...')
+#2 /home/fv0qhpr8lzrr/public_html/jobcard/folders/login/crud.php(88): menu_permission('621327312bf3971...')
+#3 {main}
+[22-Sep-2023 16:09:15 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'root', 'u.VychRqb]3lVpr...', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'root', 'u.VychRqb]3lVpr...', 'jobcard')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(10): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 16:09:18 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'root', 'u.VychRqb]3lVpr...', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'root', 'u.VychRqb]3lVpr...', 'jobcard')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(10): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 16:09:19 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'root', 'u.VychRqb]3lVpr...', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'root', 'u.VychRqb]3lVpr...', 'jobcard')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(10): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 16:09:19 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'root', 'u.VychRqb]3lVpr...', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'root', 'u.VychRqb]3lVpr...', 'jobcard')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(10): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 16:09:19 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'root', 'u.VychRqb]3lVpr...', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'root', 'u.VychRqb]3lVpr...', 'jobcard')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(10): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 16:09:19 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'root', 'u.VychRqb]3lVpr...', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'root', 'u.VychRqb]3lVpr...', 'jobcard')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(10): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 16:09:20 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'root', 'u.VychRqb]3lVpr...', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'root', 'u.VychRqb]3lVpr...', 'jobcard')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(10): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 16:09:20 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'root', 'u.VychRqb]3lVpr...', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'root', 'u.VychRqb]3lVpr...', 'jobcard')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(10): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 16:09:53 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'root', 'u.VychRqb]3lVpr...', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'root', 'u.VychRqb]3lVpr...', 'jobcard')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(10): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 16:13:27 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'root', 'u.VychRqb]3lVpr...', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'root', 'u.VychRqb]3lVpr...', 'jobcard')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(10): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 16:15:15 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'root', 'u.VychRqb]3lVpr...', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'root', 'u.VychRqb]3lVpr...', 'jobcard')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(10): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 16:16:01 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'root', 'u.VychRqb]3lVpr...', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'root', 'u.VychRqb]3lVpr...', 'jobcard')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(10): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 16:17:20 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'root', 'u.VychRqb]3lVpr...', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'root', 'u.VychRqb]3lVpr...', 'jobcard')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(10): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 16:18:42 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'root', 'u.VychRqb]3lVpr...', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'root', 'u.VychRqb]3lVpr...', 'jobcard')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(10): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 16:20:13 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'root', 'u.VychRqb]3lVpr...', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'root', 'u.VychRqb]3lVpr...', 'jobcard')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(10): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 16:24:49 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'root', 'u.VychRqb]3lVpr...', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'root', 'u.VychRqb]3lVpr...', 'jobcard')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(10): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 16:24:51 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'root', 'u.VychRqb]3lVpr...', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'root', 'u.VychRqb]3lVpr...', 'jobcard')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(10): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 16:24:52 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'root', 'u.VychRqb]3lVpr...', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'root', 'u.VychRqb]3lVpr...', 'jobcard')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(10): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 16:25:28 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'root', 'u.VychRqb]3lVpr...', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'root', 'u.VychRqb]3lVpr...', 'jobcard')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(10): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 16:27:08 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'root', 'u.VychRqb]3lVpr...', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'root', 'u.VychRqb]3lVpr...', 'jobcard')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(11): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 16:39:55 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1044] Access denied for user 'zigma'@'localhost' to database 'task_management' in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'zigma', '?WSzvxHv1LGZ', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'zigma', '?WSzvxHv1LGZ', 'task_management')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(11): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 16:41:32 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1044] Access denied for user 'zigma'@'localhost' to database 'task_management' in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'zigma', '?WSzvxHv1LGZ', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'zigma', '?WSzvxHv1LGZ', 'task_management')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(11): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 16:43:45 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1044] Access denied for user 'zigma'@'localhost' to database 'task_management' in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'zigma', '?WSzvxHv1LGZ', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'zigma', '?WSzvxHv1LGZ', 'task_management')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(11): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 16:45:37 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1044] Access denied for user 'zigma'@'localhost' to database 'task_management' in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'zigma', '?WSzvxHv1LGZ', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'zigma', '?WSzvxHv1LGZ', 'task_management')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(11): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 16:49:18 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1044] Access denied for user 'zigma'@'localhost' to database 'task_management' in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'zigma', '?WSzvxHv1LGZ', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'zigma', '?WSzvxHv1LGZ', 'task_management')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(11): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 16:52:42 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1044] Access denied for user 'zigma'@'localhost' to database 'task_management' in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'zigma', '?WSzvxHv1LGZ', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'zigma', '?WSzvxHv1LGZ', 'task_management')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(11): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 16:55:10 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1044] Access denied for user 'zigma'@'localhost' to database 'task_management' in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'zigma', '?WSzvxHv1LGZ', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'zigma', '?WSzvxHv1LGZ', 'task_management')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(11): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 16:56:03 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1044] Access denied for user 'zigma'@'localhost' to database 'task_management' in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'zigma', '?WSzvxHv1LGZ', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'zigma', '?WSzvxHv1LGZ', 'task_management')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(11): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 17:01:13 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1044] Access denied for user 'zigma'@'localhost' to database 'task_management' in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'zigma', '?WSzvxHv1LGZ', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'zigma', '?WSzvxHv1LGZ', 'task_management')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(11): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 17:10:30 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1044] Access denied for user 'zigma'@'localhost' to database 'task_management' in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'zigma', '?WSzvxHv1LGZ', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'zigma', '?WSzvxHv1LGZ', 'task_management')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(11): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 17:12:29 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1044] Access denied for user 'zigma'@'localhost' to database 'task_management' in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'zigma', '?WSzvxHv1LGZ', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'zigma', '?WSzvxHv1LGZ', 'task_management')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(11): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 17:12:30 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1044] Access denied for user 'zigma'@'localhost' to database 'task_management' in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'zigma', '?WSzvxHv1LGZ', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'zigma', '?WSzvxHv1LGZ', 'task_management')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(11): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 17:24:17 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1044] Access denied for user 'zigma'@'localhost' to database 'task_management' in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'zigma', '?WSzvxHv1LGZ', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'zigma', '?WSzvxHv1LGZ', 'task_management')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(11): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 17:25:08 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1044] Access denied for user 'zigma'@'localhost' to database 'task_management' in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'zigma', '?WSzvxHv1LGZ', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'zigma', '?WSzvxHv1LGZ', 'task_management')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(11): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 17:25:38 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1044] Access denied for user 'zigma'@'localhost' to database 'task_management' in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'zigma', '?WSzvxHv1LGZ', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'zigma', '?WSzvxHv1LGZ', 'task_management')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(11): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 17:28:10 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1044] Access denied for user 'zigma'@'localhost' to database 'task_management' in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'zigma', '?WSzvxHv1LGZ', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'zigma', '?WSzvxHv1LGZ', 'task_management')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(11): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 17:31:00 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1044] Access denied for user 'zigma'@'localhost' to database 'task_management' in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'zigma', '?WSzvxHv1LGZ', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'zigma', '?WSzvxHv1LGZ', 'task_management')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(11): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 17:44:05 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1044] Access denied for user 'zigma'@'localhost' to database 'task_management' in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'zigma', '?WSzvxHv1LGZ', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'zigma', '?WSzvxHv1LGZ', 'task_management')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(11): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 18:01:28 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1044] Access denied for user 'zigma'@'localhost' to database 'task_management' in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'zigma', '?WSzvxHv1LGZ', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'zigma', '?WSzvxHv1LGZ', 'task_management')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(11): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 18:04:20 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1044] Access denied for user 'zigma'@'localhost' to database 'task_management' in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'zigma', '?WSzvxHv1LGZ', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'zigma', '?WSzvxHv1LGZ', 'task_management')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(11): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 18:09:48 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1044] Access denied for user 'zigma'@'localhost' to database 'task_management' in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'zigma', '?WSzvxHv1LGZ', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'zigma', '?WSzvxHv1LGZ', 'task_management')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(11): include('/home/t35cn7grv...')
+#3 {main}
+[22-Sep-2023 18:14:44 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1044] Access denied for user 'zigma'@'localhost' to database 'task_management' in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'zigma', '?WSzvxHv1LGZ', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'zigma', '?WSzvxHv1LGZ', 'task_management')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(11): include('/home/t35cn7grv...')
+#3 {main}
+[25-Sep-2023 15:38:33 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1044] Access denied for user 'zigma'@'localhost' to database 'task_management' in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', 'zigma', '?WSzvxHv1LGZ', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', 'zigma', '?WSzvxHv1LGZ', 'task_management')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(11): include('/home/t35cn7grv...')
+#3 {main}
+[25-Sep-2023 16:02:54 Asia/Kolkata] PDOException: SQLSTATE[HY000] [1045] Access denied for user ''@'localhost' (using password: NO) in /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php:48
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/task_management/config/dbclass.php(48): PDO->__construct('mysql:host=loca...', '', '', Array)
+#1 /home/t35cn7grvyxc/public_html/task_management/config/dbconfig.php(34): db->__construct('mysql', 'localhost', '', '', 'task_management')
+#2 /home/t35cn7grvyxc/public_html/task_management/folders/login/crud.php(11): include('/home/t35cn7grv...')
+#3 {main}
+[18-Nov-2023 11:37:50 Asia/Kolkata] PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'staff_name' in 'field list' in /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php:302
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php(302): PDOStatement->execute()
+#1 /home/t35cn7grvyxc/public_html/adhm/folders/login/crud.php(74): db->select()
+#2 {main}
+[18-Nov-2023 11:37:53 Asia/Kolkata] PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'staff_name' in 'field list' in /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php:302
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php(302): PDOStatement->execute()
+#1 /home/t35cn7grvyxc/public_html/adhm/folders/login/crud.php(74): db->select()
+#2 {main}
+[18-Nov-2023 11:38:08 Asia/Kolkata] PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'staff_name' in 'field list' in /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php:302
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php(302): PDOStatement->execute()
+#1 /home/t35cn7grvyxc/public_html/adhm/folders/login/crud.php(74): db->select()
+#2 {main}
+[18-Nov-2023 11:39:15 Asia/Kolkata] PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.user_type_unique_id ) AS user_type_name,  COUNT(unique_id) AS count,  user_type' at line 1 in /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php:302
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php(302): PDOStatement->execute()
+#1 /home/t35cn7grvyxc/public_html/adhm/folders/login/crud.php(74): db->select()
+#2 {main}
+[18-Nov-2023 11:41:44 Asia/Kolkata] PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.user_type_unique_id ) AS user_type_name,  COUNT(unique_id) AS count,  user_type' at line 1 in /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php:302
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php(302): PDOStatement->execute()
+#1 /home/t35cn7grvyxc/public_html/adhm/folders/login/crud.php(74): db->select()
+#2 {main}
+[18-Nov-2023 11:42:11 Asia/Kolkata] PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.user_type_unique_id ) AS user_type_name,  COUNT(unique_id) AS count,  user_type' at line 1 in /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php:302
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php(302): PDOStatement->execute()
+#1 /home/t35cn7grvyxc/public_html/adhm/folders/login/crud.php(74): db->select()
+#2 {main}
+[18-Nov-2023 11:42:21 Asia/Kolkata] PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.user_type_unique_id ) AS user_type_name,  COUNT(unique_id) AS count,  user_type' at line 1 in /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php:302
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php(302): PDOStatement->execute()
+#1 /home/t35cn7grvyxc/public_html/adhm/folders/login/crud.php(74): db->select()
+#2 {main}
+[18-Nov-2023 11:44:33 Asia/Kolkata] PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.user_type_unique_id ) AS user_type_name,  COUNT(unique_id) AS count,  user_type' at line 1 in /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php:302
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php(302): PDOStatement->execute()
+#1 /home/t35cn7grvyxc/public_html/adhm/folders/login/crud.php(74): db->select()
+#2 {main}
+[18-Nov-2023 11:46:10 Asia/Kolkata] PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.user_type_unique_id ) AS user_type_name,  COUNT(unique_id) AS count,  user_type' at line 1 in /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php:302
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php(302): PDOStatement->execute()
+#1 /home/t35cn7grvyxc/public_html/adhm/folders/login/crud.php(74): db->select()
+#2 {main}
+[18-Nov-2023 11:48:04 Asia/Kolkata] PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.user_type_unique_id ) AS user_type_name,  COUNT(unique_id) AS count,  user_type' at line 1 in /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php:302
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php(302): PDOStatement->execute()
+#1 /home/t35cn7grvyxc/public_html/adhm/folders/login/crud.php(74): db->select()
+#2 {main}

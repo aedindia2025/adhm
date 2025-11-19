@@ -1,0 +1,456 @@
+<?php 
+
+$academic_year_options = academic_year($academic_year);
+$academic_year_options = select_option_acc($academic_year_options,$academic_year);
+
+
+
+if($_GET["unique_id"] != ''){
+    $unique_id =$_GET["unique_id"];
+}else{
+    // $prefix    = "PO";
+    $unique_id = unique_id($prefix);
+    
+}
+
+?>
+
+<style>
+.fm {
+    margin-bottom: 15px;
+}
+
+.btn {
+    background: #149cce;
+    color: white;
+    margin-bottom: 25px;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+    color: var(--ct-nav-pills-link-active-color);
+    background-color: #149cce;
+}
+
+.form-label {
+    margin-bottom: 2px;
+    font-weight: 300;
+}
+</style>
+<!-- Modal with form -->
+
+<div class="content-page">
+    <div class="content">
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box">
+
+                        <h4 class="page-title">Infra and facilities</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+            <div class="row">
+                <div class="col-12">
+                    <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
+                        <li class="nav-item">
+                            <a href="#home1" data-bs-toggle="tab" aria-expanded="false"
+                                class="nav-link rounded-0 active">
+                                <i class="mdi mdi-home-variant d-md-none d-block"></i>
+                                <span class="d-none d-md-block">Hostel Info</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#profile1" data-bs-toggle="tab" aria-expanded="true" class="nav-link rounded-0 ">
+                                <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                                <span class="d-none d-md-block">Land Details</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#settings1" data-bs-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
+                                <i class="mdi mdi-settings-outline d-md-none d-block"></i>
+                                <span class="d-none d-md-block">Building Details</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#settings2" data-bs-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
+                                <i class="mdi mdi-settings-outline d-md-none d-block"></i>
+                                <span class="d-none d-md-block">Other facilities</span>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane show active" id="home1">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-12 fm">
+                                                    <label for="example-select" class="form-label">Acadamic Year</label>
+                                                    <select class="form-select" id="acc_year" name="acc_year" disabled>
+                                                        <?php echo $academic_year_options; ?>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-12 fm">
+                                                    <label for="simpleinput" class="form-label">Hostel Name</label>
+                                                    <input type="text" class="form-control"
+                                                        value="Dr.Ambethkar Govt.ADW College Boys Hostel, Rangamp">
+                                                    <input type="text" id="hostel_name" name="hostel_name"
+                                                        class="form-control" value="65584660e85as2403310">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-12 fm">
+                                                    <label for="simpleinput" class="form-label">Hostel ID</label>
+                                                    <input type="text" class="form-control" value="TN100001">
+                                                    <input type="text" id="hostel_id" name="hostel_id"
+                                                        class="form-control" value="TN100001">
+                                                </div>
+                                                <div class="col-md-12 fm">
+                                                    <label for="example-select" class="form-label">Taulk</label>
+                                                    <select class="form-select" id="taluk" name="taluk">
+                                                        <!-- <option>Select Taulk Name</option>
+                                                        <option>Salem</option> -->
+                                                        <option value="65584660e85d24200559">Erode</option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 fm">
+                                            <label for="example-select" class="form-label">District</label>
+                                            <!-- <input class="form-control" id="district" name="district" value="65584660e85d24200559"/> -->
+                                            <select class="form-select" id="district" name="district">
+                                                <!-- <option>Select District Name</option> -->
+                                                <!-- <option>Salem</option> -->
+                                                <option value="65584660e85f131401" selected>Erode</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="profile1">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+
+                                        <div class="col-md-5 fm">
+                                            <label for="example-select" class="form-label">Having own land / Not having
+                                                own land</label>
+                                            <select class="form-select" id="land_type" name="land_type"
+                                                onchange="changeLandType(this)">
+                                                <option value="">Select</option>
+                                                <option value="own_land">Having own land</option>
+                                                <option value="not_own_land"> Not having own land</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3 fm" id="own_land_div">
+                                            <label for="example-select" class="form-label">Owner of the land</label>
+                                            <select class="form-select" id="owner_of_land" name="owner_of_land">
+                                                <option value="">Select Owner of the land</option>
+                                                <option value="DADAWO">DADWO</option>
+                                                <option value="Poramboke">Poramboke</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div id="own_land_div1">
+                                        <!--if have land------->
+                                        <h5>If have land</h5>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-3 fm">
+                                                <label for="simpleinput" class="form-label">A-Register of the
+                                                    land</label>
+                                                <input type="text" id="reg_of_land" name="reg_of_land"
+                                                    class="form-control">
+                                            </div>
+                                            <div class="col-md-3 fm">
+                                                <label for="formFileMultiple" class="form-label">Doc Upload</label>
+                                                <input class="form-control" type="file" id="doc_file" name="doc_file"
+                                                    multiple>
+                                            </div>
+                                            <div class="col-md-3 fm">
+                                                <label class="form-label">Total Area of land</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="area_of_land"
+                                                        name="area_of_land">
+                                                    <span class="input-group-text">sq ft</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 fm">
+                                                <label class="form-label">Constructed area of
+                                                    land</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="con_area_land"
+                                                        name="con_area_land">
+                                                    <span class="input-group-text">sq ft</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="settings1">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+
+                                        <div class="col-md-4 fm">
+                                            <label for="example-select" class="form-label">Existing or
+                                                Demolished</label>
+                                            <select class="form-select" id="existing_demolished"
+                                                name="existing_demolished" onchange="exisiting_demolished(this)">
+                                                <option value="">Select</option>
+                                                <option value="existing">Existing</option>
+                                                <option value="demolished">Demolished</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 fm" id="no_floor_div">
+                                            <label for="example-select" class="form-label">Number of floors</label>
+                                            <select class="form-select" id="no_floors" name="no_floors">
+                                                <option value="">Select </option>
+                                                <option value="ground_floor">Ground Floor</option>
+                                                <option value="first_floor">First Floor</option>
+                                                <option value="second_floor">Second Floor</option>
+                                                <option value="Third_floor">Third Floor</option>
+                                                <option value="fourth_floor">Fourth Floor</option>
+                                                <option value="fifth_floor">Fifth Floor</option>
+                                                <option value="sixth_floor">Sixth Floor</option>
+                                                <option value="seventh_floor">Seventh Floor</option>
+                                                <option value="eighth_floor">Eighth Floor</option>
+                                                <option value="ninth_floor">Ninth Floor</option>
+
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 fm" id="no_toilet_div">
+                                            <label class="form-label">Number of toliet blcok in each
+                                                floor</label>
+                                            <input type="text" id="toilet_each_floor" name="toilet_each_floor"
+                                                class="form-control">
+                                        </div>
+                                        <div class="col-md-4 fm" id="compound_waal_div">
+                                            <label class="form-label">Compound wall</label>
+                                            <select class="form-select" id="compound_wall" name="compound_wall">
+                                                <option value="">Select </option>
+                                                <option value="4 sides available">4 sides available</option>
+                                                <option value="partially available">Partially available</option>
+                                                <option value="4 sides available but damaged">4 sides available but
+                                                    damaged</option>
+                                                <option value="not available">Not available</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 fm" id="water_fac_div">
+                                            <label class="form-label">Water facilities</label>
+                                            <select class="form-select" id="water_facilities" name="water_facilities">
+                                                <option value="">Select</option>
+                                                <option value="borewell">Borewell </option>
+                                                <option value="panchayat union water">Panchayat union water</option>
+                                                <option value="corporation water">Corporation water</option>
+                                                <option value="private water">Private water</option>
+                                                <option value="RO water facilities available">RO water facilities
+                                                    available</option>
+                                            </select>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div id="ground_floor_div">
+                                        <div class="row">
+                                            <h5>If Ground Floor</h5>
+                                            <hr>
+                                            <div class="col-md-3 fm">
+                                                <label class="form-label">Number of living area</label>
+                                                <input type="text" id="living_area" name="living_area"
+                                                    class="form-control">
+                                            </div>
+                                            <div class="col-md-3 fm">
+                                                <label class="form-label">It's Size</label>
+                                                <input type="text" id="living_area_size" name="living_area_size"
+                                                    class="form-control">
+                                            </div>
+                                            <div class="col-md-3 fm">
+                                                <label class="form-label">Number of Rooms</label>
+                                                <input type="text" id="no_of_rooms" name="no_of_rooms"
+                                                    class="form-control">
+                                            </div>
+                                            <div class="col-md-3 fm">
+                                                <label class="form-label">It's Size</label>
+                                                <input type="text" id="room_size" name="room_size" class="form-control">
+                                            </div>
+                                            <div class="col-md-3 fm">
+                                                <label class="form-label">Number of Kitchen</label>
+                                                <input type="text" id="no_of_kitchen" name="no_of_kitchen"
+                                                    class="form-control">
+                                            </div>
+                                            <div class="col-md-3 fm">
+                                                <label class="form-label">It's Size</label>
+                                                <input type="text" id="kitchen_size" name="kitchen_size"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="demolished_div">
+                                        <div class="row">
+                                            <h5>If demolished</h5>
+                                            <hr>
+                                            <div class="col-md-4 fm">
+                                                <label class="form-label">If demolished</label>
+                                                <select class="form-select" id="demolished" name="demolished">
+                                                    <option value="">Select</option>
+                                                    <option value="New construction is ongoing">New construction is
+                                                        ongoing</option>
+                                                    <option value="New construction is yet not taken">New construction
+                                                        is yet not taken</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="settings2">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+
+                                        <div class="col-md-4 fm">
+                                            <label class="form-label"> Digital Facilities / Other
+                                                facilities</label>
+                                            <select class="form-select" id="facilities_type" name="facilities_type"
+                                                onchange="facilities(this)">
+                                                <option value="">Select</option>
+                                                <option value="digital_facility">Digital Facilities</option>
+                                                <option value="other_facility">Other Facilities</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <h5 id="facility_title">If Other Facilities</h5>
+                                    <h5 id="facility_title1">If Digital Facilities</h5>
+                                    <hr>
+                                    <div class="row" id="facilities_div">
+                                        <div class="col-md-4 fm">
+                                            <label for="example-select" class="form-label">Select Facilities</label>
+                                            <select class="form-select" id="facilities" name="facilities">
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 fm">
+                                            <label class="form-label">Quantity</label>
+                                            <input type="text" id="quantity" name="quantity" class="form-control">
+                                        </div>
+                                        <div class="col-md-4 fm">
+                                            <label class="form-label">Description</label>
+                                            <textarea class="form-control" id="description" name="description"
+                                                style="height: 60px"></textarea>
+                                        </div>
+
+                                    </div>
+                                    <div>
+                                        <button class="btn" type="button" onclick="save_facilities()">Save</button>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <table class="table table-bordered table-centered mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>S.No</th>
+                                                        <th>Digital Fac / Other Fac</th>
+                                                        <th>Facilities</th>
+                                                        <th>Quantity</th>
+                                                        <th>Description</th>
+                                                        <th class="text-center">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>01</td>
+                                                        <td class="table-user">
+                                                            Other Facilities
+                                                        </td>
+                                                        <td class="table-user">
+                                                            Fan
+                                                        </td>
+                                                        <td>5</td>
+                                                        <td>Demo</td>
+                                                        <td class="table-action text-center">
+                                                            <a href="javascript: void(0);" class="action-icon"> <i
+                                                                    class="mdi mdi-delete"></i></a>
+                                                        </td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <button class="prevtab btn btn-success">Prev</button>
+                    <button class="nexttab btn btn-success">Next</button>
+
+                </div>
+            </div>
+
+
+
+            <!-- <script>
+            function bootstrapTabControl() {
+                var i, items = $('.nav-link'),
+                    pane = $('.tab-pane');
+                // next
+                $('.nexttab').on('click', function() {
+                    for (i = 0; i < items.length; i++) {
+                        if ($(items[i]).hasClass('active') == true) {
+                            break;
+                        }
+                    }
+                    if (i < items.length - 1) {
+                        // for tab
+                        $(items[i]).removeClass('active');
+                        $(items[i + 1]).addClass('active');
+                        // for pane
+                        $(pane[i]).removeClass('show active');
+                        $(pane[i + 1]).addClass('show active');
+                    }
+
+                });
+                // Prev
+                $('.prevtab').on('click', function() {
+                    for (i = 0; i < items.length; i++) {
+                        if ($(items[i]).hasClass('active') == true) {
+                            break;
+                        }
+                    }
+                    if (i != 0) {
+                        // for tab
+                        $(items[i]).removeClass('active');
+                        $(items[i - 1]).addClass('active');
+                        // for pane
+                        $(pane[i]).removeClass('show active');
+                        $(pane[i - 1]).addClass('show active');
+                    }
+                });
+            }
+            bootstrapTabControl();
+            </script> -->

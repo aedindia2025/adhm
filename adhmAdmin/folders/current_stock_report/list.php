@@ -1,0 +1,208 @@
+<?php
+
+$district_unique_id = $_SESSION["district_id"];
+$taluk_unique_id = $_SESSION['taluk_id'];
+$hostel_unique_id = $_SESSION['hostel_id'];
+$academic_year = $_SESSION['academic_year'];
+
+$academic_year_options = academic_year();
+$academic_year_options = select_option_acc($academic_year_options);
+
+$district_name_list = district_name($district_unique_id);
+$district_name_list = select_option($district_name_list, "Select District", $district_unique_id);
+
+$taluk_name_list = taluk_name($taluk_unique_id);
+$taluk_name_list = select_option($taluk_name_list, "Select Taluk", $taluk_unique_id);
+
+$hostel_name_list = hostel_name($hostel_unique_id);
+$hostel_name_list = select_option($hostel_name_list, "Select Hostel", $hostel_unique_id);
+
+$current_month = date('%M,%Y');
+
+// print_r($current_month);die()
+?>
+
+<style>
+    .disabled-select {
+        pointer-events: none;
+        background-color: #f5f5f5;
+        /* or any other color to indicate it's disabled */
+        color: #999;
+        /* or any other color to indicate it's disabled */
+    }
+    .load {
+        text-align: center;
+        position: absolute;
+        top: 17%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: none;
+
+    }
+
+    i.mdi.mdi-loading.mdi-spin {
+        font-size: 75px;
+        color: #17a8df;
+    }
+
+    .dt-buttons.btn-group.flex-wrap {
+        display: none;
+    }
+</style>
+<div class="content-page">
+    <div class="content">
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-10">
+                    <div class="page-title-box">
+
+                        <h4 class="page-title">Current Stock Report</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <form class="was-validated" autocomplete="off">
+
+                        <div class="row">
+                            <div class="col-md-3 mb-3" style="display:none">
+                                <label for="example-select" class="form-label">Academic Year</label>
+                                <select class="form-select disabled-select" name="academic_year" id="academic_year">
+                                    <?php echo $academic_year_options; ?>
+                                </select>
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <label for="example-select" class="form-label">District</label>
+                                <select class="form-select" name="district" id="district" onchange="get_taluk()">
+                                    <?php echo $district_name_list; ?>
+                                </select>
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <label for="example-select" class="form-label">Taluk</label>
+                                <select class="form-select" name="taluk" id="taluk" onchange="get_hostel()">
+                                    <?php echo $taluk_name_list; ?>
+                                </select>
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <label for="example-select" class="form-label">Hostel</label>
+                                <select class="form-select" name="hostel" id="hostel">
+                                    <?php echo $hostel_name_list; ?>
+                                </select>
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <label for="example-select" class="form-label">Month</label>
+                                <input type="month" id="month_fill" name="month_fill" class="form-control"
+                                    value="<?php echo date('Y-m'); ?>">
+                            </div>
+
+                            <div class="col-md-2 mb-3">
+                                <form class="d-flex">
+                                    <buttont type="button" class="btn btn-primary" style="margin-top: 28px;"
+                                        onclick="stock_report_filter()">Go</button>
+                                </form>
+                            </div>
+                        </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <button type="button" id="export" name="export"
+                                class="btn   waves-effect waves-light wavw  mb-1"
+                                style="background: #337734;color: #fff;font-size:16px;">
+                                <i class="ri-file-excel-2-fill"
+                                    style="font-size: 22px; padding-right: 10px;line-height: 0px;vertical-align: middle;"></i>Export
+                            </button>
+                             &nbsp;&nbsp;
+                            <button type="button" id="consolidatedExport" name="consolidatedExport"
+                                class="btn   waves-effect waves-light wavw  mb-1"
+                                style="background: #337734;color: #fff;font-size:16px;">
+                                <i class="ri-file-excel-2-fill"
+                                    style="font-size: 22px; padding-right: 10px;line-height: 0px;vertical-align: middle;"></i>Consolidated Export
+                            </button>
+
+                            <div class="row">
+                                <div class="col-md-12 load" id="loader">
+                                    <i class="mdi mdi-loading mdi-spin"></i>
+                                </div>
+                            </div>
+
+                            <table id="stock_report_datatable" class="table dt-responsive nowrap w-100 mt-3">
+                                <thead>
+                                    <tr>
+                                        <th>S.no</th>
+                                        <th>Hostel Name</th>
+                                        <th>Opening Stock (Kg)</th>
+                                        <th>Inward (Kg)</th>
+                                        <th>Outward (Kg)</th>
+                                        <th>Closing Stock (Kg)</th>
+                                        <th>View</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Item desails -->
+<div class="modal fade" id="itemDetails" tabindex="-1" aria-labelledby="itemDetailsLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Stock Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Hostel ID</label><br>
+                        <label class="form-label" id="lab_hostel_id"></label>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Month</label><br>
+                        <label class="form-label" id="lab_month"></label>
+                    </div>
+                </div>
+
+                <div class="col-md-12 mb-3">
+                    <label class="form-label">Hostel Name</label><br>
+                    <label class="form-label" id="lab_hostel_name"></label>
+                </div>
+
+                <div class="col-md-12">
+                    <table id="item_deatils_table" class="table dt-responsive nowrap w-100">
+                        <thead>
+                            <tr>
+                                <th>S.No</th>
+                                <th>Item Name</th>
+                                <th>Opening</th>
+                                <th>Inward</th>
+                                <th>Outward</th>
+                                <th>Closing</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Table rows will be populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

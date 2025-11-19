@@ -1,0 +1,54 @@
+<style>
+a.btn.btn-action.specl2 button {
+    border: 0px;
+    background: unset;
+    color: #00afef;
+    font-size: 15px;
+}
+a.btn.btn-action.specl2 {
+    padding: 0px;
+}
+</style>
+
+
+<div class="content-page">
+    <div class="content">
+        <!-- Start Content-->
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box">
+                        <div class="page-title-right">
+                            <form class="d-flex">
+                                <?php echo btn_add($btn_add); ?>
+                            </form>
+                        </div>
+                        <h4 class="page-title">Inspection</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <table id="inspection_datatable" class="table dt-responsive nowrap w-100">
+                                <thead>
+                                    <tr>
+                                        <th>S.No</th>
+                                        <th>Inspection Date</th>
+                                        <th>Inspection ID</th>
+                                        <th>Hostel Name</th>
+					<th>File</th>
+                                        <th>Description</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

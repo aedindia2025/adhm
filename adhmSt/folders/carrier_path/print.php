@@ -1,0 +1,224 @@
+<?php
+session_start();
+
+// Step 1: Check Authentication Status
+if (!isset($_SESSION['user_id'])) {
+    // Redirect unauthorized users to the login page
+    header('Location: login.php');
+    exit;
+}
+
+// Step 2: Secure File Access (optional)
+// Implement authorization checks here if necessary
+
+// Step 3: Fetch Unique ID
+if (isset($_GET['unique_id'])) {
+    $unique_id = $_GET['unique_id'];
+    // Process the unique ID as needed
+    // For example, retrieve the corresponding PDF file and display it
+    // Make sure to implement appropriate security checks here
+} else {
+    // Handle case where unique ID is not provided
+    echo 'Error: Unique ID is missing.';
+}
+?>
+
+
+
+<?php
+include '../../config/dbconfig.php';
+if (isset($_GET['unique_id'])) {
+    if (!empty($_GET['unique_id'])) {
+        $unique_id = $_GET['unique_id'];
+        $where = [
+            'unique_id' => $unique_id,
+        ];
+
+        $table_1 = 'carrier_path_creation';
+        $table2 = 'std_reg_s';
+
+        $columns_1 = [
+            // "(select std_name from std_reg_p1 where std_reg_p1.unique_id = carrier_path_creation.student_name) as student_name",
+            'student_name',
+            "DATE_FORMAT(created, '%Y-%m-%d') as created",
+
+            // "(select staff_name from staff_registration where staff_registration.user_type='65cb092facaf836335' AND staff_registration.hostel_name =  $table_1.hostel_name) as warden_name",
+
+            //'(select entry_date from std_reg_p1 where std_reg_p1.unique_id = carrier_path_creation.student_name) as entry_date',
+            '(select std_reg_no from std_reg_s where std_reg_s.unique_id = carrier_path_creation.student_id) as student_id',
+            // "student_id",
+
+            'employment_course',
+            'job',
+            'student_class',
+            'course',
+            // "qualification",
+            // "taluk_name",
+            "(select taluk_name from taluk_creation where taluk_creation.unique_id = $table_1.taluk_name) as taluk_name",
+
+            "(select academic_year from std_reg_s where std_reg_s.unique_id = $table_1.student_name) as acc_yr",
+            "(select district_name from district_name where district_name.unique_id = $table_1.district_name) as district_name",
+            // "district_name",
+            "(select hostel_name from hostel_name where hostel_name.unique_id = $table_1.hostel_name) as hostel_name",
+            // "hostel_name",
+            // "(select staff_name from staff_registration where staff_registration.hostel_name = $table2.hostel_name) as warden_name",
+            'unique_id',
+            // "is_active"
+        ];
+
+        $table_details = [
+            $table_1,
+            $columns_1,
+        ];
+
+        $result_values = $pdo->select($table_details, $where);
+        // print_r($result_values);die();
+
+        if ($result_values->status) {
+            $result_values = $result_values->data;
+            $warden_name = $result_values[0]['warden_name'];
+            $qualification = $result_values[0]['qualification'];
+            $student_name = $result_values[0]['student_name'];
+            $created = $result_values[0]['created'];
+            $entry_date = $result_values[0]['entry_date'];
+
+            $student_id = $result_values[0]['student_id'];
+            $student_qualification = $result_values[0]['student_class'];
+            $employment_course = $result_values[0]['employment_course'];
+            $job = $result_values[0]['job'];
+
+            // $warden = $result_values[0]["warden_name"];
+
+            $taluk_name = $result_values[0]['taluk_name'];
+            $district_name = $result_values[0]['district_name'];
+            $hostel_name = $result_values[0]['hostel_name'];
+            // acc_yr
+            $acc_yr = $result_values[0]['acc_yr'];
+
+            // $result_values["taluk"] = taluk_name_get($taluk)[0]['taluk_name'];
+
+            // $result_values["district"] = district_name($district)[0]['district_name'];
+
+            // $result_values["hostel"] = hostel_name($hostel)[0]['hostel_name'];
+
+            $result_values['acc_yr'] = academic_year($acc_yr)[0]['amc_year'];
+
+            // $district    =   $result_values[0]["district"];
+            // $hostel        =   $result_values[0]["hostel"];
+            // $job = $result_values[0]["job"];
+
+            $course = $result_values[0]['course'];
+            $is_active = $result_values['is_active'];
+
+            $btn_text = 'Update';
+            $btn_action = 'update';
+        } else {
+            $btn_text = 'Error';
+            $btn_action = 'error';
+            $is_btn_disable = "disabled='disabled'";
+        }
+    }
+}
+
+// $active_status_options   = active_status($is_active);
+?>
+<link href='../../assets/css/app-saas.min.css' rel='stylesheet' type='text/css'>
+<style>
+    .card-body {
+        margin: 20px;
+        border: 1px solid #ccc;
+        padding: 20px;
+    }
+
+    .vendorListHeading {
+        background-color: #f3f3f3;
+        color: black;
+        -webkit-print-color-adjust: exact;
+        border: 1px solid #ccc;
+    }
+
+    .mt-2.vendorListHeading p {
+        margin-bottom: 0px;
+        text-align: center;
+        padding: 5px;
+    }
+</style>
+<div class="card-body">
+    <div class="clearfix">
+        <div class=" mb-3 text-center">
+            <img src="../../assets/images/ad-logo.png" alt="dark logo" height="50">
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-sm-12 mb-2">
+            <div class=" mt-2 vendorListHeading">
+                <p><b>Carrier Path</b></p>
+
+            </div>
+        </div><!-- end col -->
+        <div class="col-sm-12 ">
+            <div class="mt-0 float-sm-left">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p class="font-13">Entry Date: <strong><?php echo $created; ?></strong></p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="font-13">Accademic Year: <strong><?php echo $result_values['acc_yr']; ?></strong></p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="font-13">Student ID: <strong><?php echo $student_id; ?></strong></p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="font-13">Student Name: <strong><?php echo $student_name; ?></strong></p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="font-13">District Name: <strong><?php echo $district_name; ?></strong></p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="font-13">Taluk Name: <strong><?php echo $taluk_name; ?></strong></p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="font-13">Hostel Name: <strong><?php echo $hostel_name; ?></strong></p>
+                    </div>
+                    <!-- <div class="col-sm-6">
+                        <p class="font-13">Warden Name: <strong><?php echo $warden_name; ?></strong></p>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-12 mb-2">
+            <div class=" mt-2 vendorListHeading">
+
+                <p><b>Course Details</b></p>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <p class="font-13">Qualification: <strong><?php echo $student_qualification; ?></strong></p>
+        </div>
+        <div class="col-sm-4">
+            <p class="font-13">Employment/Course: <strong><?php echo $employment_course; ?></strong></p>
+        </div>
+        <?php if ($employment_course == 'course') { ?>
+            <div class="col-sm-4">
+                <p class="font-13">Course: <strong><?php echo $course; ?></strong></p>
+            </div>
+            <?php
+        } ?>
+        <?php if ($employment_course == 'employment') { ?>
+            <div class="col-sm-4">
+                <p class="font-13">Organization name: <strong><?php echo $job; ?></strong></p>
+            </div>
+            <?php
+        } ?>
+    </div>
+</div><!-- end col -->
+</div>
+<!-- </div> -->
+<!--        
+                </div>
+            </div> -->

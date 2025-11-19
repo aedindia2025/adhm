@@ -1,0 +1,174 @@
+$(document).ready(function () {
+// 	// var table_id 	= "cctv_live_datatable";
+// 	myfilter();
+	// init_datatable(table_id,form_name,action);
+});
+var company_name 	= sessionStorage.getItem("company_name");
+var company_address	= sessionStorage.getItem("company_name");
+var company_phone 	= sessionStorage.getItem("company_name");
+var company_email 	= sessionStorage.getItem("company_name");
+var company_logo 	= sessionStorage.getItem("company_name");
+var form_name 		= 'User Type';
+var form_header		= '';
+var form_footer 	= '';
+var table_name 		= '';
+var table_id 		= 'carrier_path_datatable';
+var action 			= "datatable";
+function init_datatable(table_id='',form_name='',action='') {
+	// alert("hii");
+	var table = $("#"+table_id);
+	var district_name = $('#district_name').val();
+    var taluk_name = $('#taluk_name').val();
+    var hostel_name = $('#hostel_name').val();
+    var academic_year = $('#academic_year').val();
+	var get_val = $('#get_val').val();
+	var data 	  = {
+		"district_name" :district_name,
+		"taluk_name" :taluk_name,
+		"hostel_name" :hostel_name,
+		"academic_year" :academic_year,
+		// "get_val" :get_val,
+		"action"	: action, 
+	};
+	var ajax_url = sessionStorage.getItem("folder_crud_link");
+	var datatable = table.DataTable({
+	
+	"ajax"		: {
+		url 	: ajax_url,
+		type 	: "POST",
+		data 	: data
+	},
+		dom: 'Bfrtip',
+		searching: false,
+		buttons: [
+			'copy', 'csv', 'excel', 'pdf', 'print'
+		]
+	});
+}
+function cctv_live_cu(unique_id = "") {
+    var internet_status  = is_online();
+    if (!internet_status) {
+        sweetalert("no_internet");
+        return false;
+    }
+    var is_form = form_validity_check("was-validated");
+    if (is_form) {
+        var data 	 = $(".was-validated").serialize();
+        data 		+= "&unique_id="+unique_id+"&action=createupdate";
+        var ajax_url = 'https://nallosaims.tn.gov.in/adw_biometric/folders/cctv_live/crud.php';
+        var url      = sessionStorage.getItem("list_link");
+        // console.log(data);
+        $.ajax({
+			type 	: "POST",
+			url 	: ajax_url,
+			data 	: data,
+			beforeSend 	: function() {
+				$(".createupdate_btn").attr("disabled","disabled");
+				$(".createupdate_btn").text("Loading...");
+			},
+			success		: function(data) {
+				var obj     = JSON.parse(data);
+				var msg     = obj.msg;
+				var status  = obj.status;
+				var error   = obj.error;
+
+				if(msg == "form_alert"){
+                    sweetalert("form_alert");
+				}else{
+
+				if (!status) {
+					url 	= '';
+                    $(".createupdate_btn").text("Error");
+                    console.log(error);
+				} else {
+					if (msg=="already") {
+						// Button Change Attribute
+						url 		= '';
+						$(".createupdate_btn").removeAttr("disabled","disabled");
+						if (unique_id) {
+							$(".createupdate_btn").text("Update");
+						} else {
+							$(".createupdate_btn").text("Save");
+						}
+					}
+				}
+			}
+				sweetalert(msg,url);
+			},
+			error 		: function(data) {
+				alert("Network Error");
+			}
+		});
+    } else {
+        sweetalert("form_alert");
+    }
+}
+
+
+function get_video(unique_id = ""){
+   
+    $("#cam_1").empty();
+    $("#cam_2").empty();
+  
+
+    var data = "unique_id=" + unique_id +"&action=get_video";
+    var ajax_url = 'https://nallosaims.tn.gov.in/adw_biometric/folders/cctv_live/crud.php';
+    if(unique_id != ''){
+     $.ajax({
+       type: "POST",
+       url: ajax_url,
+       data: data,
+       success: function(data) {
+       
+     
+        var obj     = JSON.parse(data);
+		var cam1     = obj.cam1;
+        var cam2     = obj.cam2;
+				
+				document.getElementById("cam_div").style.display = "block";
+				
+           $("#cam_1").append(cam1);
+           $("#cam_2").append(cam2);
+         
+       }
+     });
+    }else{
+      $("#myvideo").append("<h4 style='text-align:center'>Please Select District</h4>");
+    }
+       
+  }
+
+function cctv_live_delete(unique_id = "") {
+	var ajax_url = sessionStorage.getItem("folder_crud_link");
+	var url      = sessionStorage.getItem("list_link");
+	
+	confirm_delete('delete')
+	.then((result) => {
+		if (result.isConfirmed) {
+			var data = {
+				"unique_id" 	: unique_id,
+				"action"		: "delete"
+			}
+			$.ajax({
+				type 	: "POST",
+				url 	: ajax_url,
+				data 	: data,
+				success : function(data) {
+					var obj     = JSON.parse(data);
+					var msg     = obj.msg;
+					var status  = obj.status;
+					var error   = obj.error;
+					if (!status) {
+						url 	= '';
+						
+					} else {
+						init_datatable(table_id,form_name,action);
+					}
+					sweetalert(msg,url);
+				}
+			});
+		} else {
+			// alert("cancel");
+		}
+	});
+}

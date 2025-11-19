@@ -1,0 +1,123 @@
+<?php
+
+
+$district_name_list = district_name();
+$district_name_list = select_option($district_name_list, "Select District", $district_name);
+
+?>
+
+<style>
+    .load {
+        text-align: center;
+        position: absolute;
+        top: 17%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: none;
+
+    }
+
+    i.mdi.mdi-loading.mdi-spin {
+        font-size: 75px;
+        color: #17a8df;
+    }
+
+    #std_registration_report_datatable {
+        width: 100%;
+        table-layout: fixed;
+        /* Ensures columns are wrapped within 100% width */
+        word-wrap: break-word;
+    }
+
+    #std_registration_report_datatable th,
+    #std_registration_report_datatable td {
+        white-space: normal;
+        /* Allows text wrapping */
+        word-wrap: break-word;
+    }
+</style>
+
+<div class="content-page">
+    <div class="content">
+        <!-- Start Content-->
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box">
+                        <div class="page-title-right">
+                        </div>
+                        <h4 class="page-title">Registered Student Report</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3 fm">
+                                    <label class="form-label" for="example-select">District Name</label>
+                                    <select class="select2 form-control" id="district_name" name="district_name"
+                                        onchange="taluk()">
+                                        <?php echo $district_name_list; ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-3 fm">
+                                    <label class="form-label" for="example-select">Taluk Name</label>
+                                    <select class="select2 form-control" id="taluk_name" name="taluk_name"
+                                        onchange="get_hostel();">
+                                        <?php echo $taluk_name_list; ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-3 fm">
+                                    <label class="form-label" for="example-select">Hostel Name</label>
+                                    <select class="select2 form-control" id="hostel_name" name="hostel_name">
+                                        <?php echo $hostel_name_list; ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-2 align-self-center mt-3">
+                                    <div class="page-title-right">
+                                        <button class="btn btn-primary" onclick="go_filter()">GO</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- <button type="button" id="export" name="export"
+                                class="btn   waves-effect waves-light wavw  mb-1"
+                                style="background: #337734;color: #fff;font-size:16px;">
+                                <i class="ri-file-excel-2-fill"
+                                    style="font-size: 22px; padding-right: 10px;line-height: 0px;vertical-align: middle;"></i>Export
+                            </button>
+                            <br>
+
+                            <div class="row">
+                                <div class="col-md-12 load" id="loader">
+                                    <i class="mdi mdi-loading mdi-spin"></i>
+                                </div>
+                            </div> -->
+
+                            <table id="std_registration_report_datatable" class="table dt-responsive nowrap w-100">
+                                <thead>
+                                    <tr>
+                                        <th>S.no</th>
+                                        <th>District Name</th>
+                                        <th>Taluk Name</th>
+                                        <th>Hostel Name</th>
+                                        <th>Hostel ID</th>
+                                        <th>Sanctioned Strength</th>
+                                        <th>Applied Application</th>
+                                        <th>Registered To Hostel</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

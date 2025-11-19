@@ -1,0 +1,10 @@
+[19-Apr-2022 17:15:21 Asia/Kolkata] PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AS a  WHERE is_delete = 0  ORDER BY main_screen_unique_id,order_no' at line 1 in /home/fv0qhpr8lzrr/public_html/jobcard/config/dbclass.php:302
+Stack trace:
+#0 /home/fv0qhpr8lzrr/public_html/jobcard/config/dbclass.php(302): PDOStatement->execute()
+#1 /home/fv0qhpr8lzrr/public_html/jobcard/folders/user_screen/crud.php(197): db->select(Array, 'is_delete = 0', NULL, NULL, 'main_screen_uni...', 'SQL_CALC_FOUND_...')
+#2 {main}
+[19-Apr-2022 17:15:28 Asia/Kolkata] PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AS a  WHERE is_delete = 0  ORDER BY main_screen_unique_id,order_no' at line 1 in /home/fv0qhpr8lzrr/public_html/jobcard/config/dbclass.php:302
+Stack trace:
+#0 /home/fv0qhpr8lzrr/public_html/jobcard/config/dbclass.php(302): PDOStatement->execute()
+#1 /home/fv0qhpr8lzrr/public_html/jobcard/folders/user_screen/crud.php(197): db->select(Array, 'is_delete = 0', NULL, NULL, 'main_screen_uni...', 'SQL_CALC_FOUND_...')
+#2 {main}

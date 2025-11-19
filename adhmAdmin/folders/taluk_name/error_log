@@ -1,0 +1,5 @@
+[22-Nov-2023 10:46:41 Asia/Kolkata] PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'adi_dravidar.zone_name' doesn't exist in /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php:302
+Stack trace:
+#0 /home/t35cn7grvyxc/public_html/adhm/config/dbclass.php(302): PDOStatement->execute()
+#1 /home/t35cn7grvyxc/public_html/adhm/folders/zone_name/crud.php(175): db->select()
+#2 {main}

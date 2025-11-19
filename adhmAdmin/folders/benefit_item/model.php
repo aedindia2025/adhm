@@ -1,0 +1,188 @@
+<?php
+// Form variables
+$btn_text = "Save";
+$btn_action = "create";
+
+$unique_id = "";
+$user_type = "";
+$is_active = 1;
+
+if (isset($_GET["unique_id"])) {
+    if (!empty($_GET["unique_id"])) {
+
+        $uni_dec = str_replace(" ", "+", $_GET['unique_id']);
+
+        $get_uni_id = openssl_decrypt(base64_decode($uni_dec), $enc_method, $enc_password, OPENSSL_RAW_DATA, $enc_iv);
+
+        $unique_id = $get_uni_id;
+        $where = [
+            "unique_id" => $unique_id
+        ];
+
+        $table = "benefit_item";
+
+        $columns = [
+            "benefit_category",
+            "benefit_item",
+            "gender",
+            "description",
+            "is_active"
+        ];
+
+        $table_details = [
+            $table,
+            $columns
+        ];
+
+        $result_values = $pdo->select($table_details, $where);
+
+        if ($result_values->status) {
+
+            $result_values = $result_values->data;
+
+            $benefit_category = $result_values[0]["benefit_category"];
+            $benefit_item = $result_values[0]["benefit_item"];
+            $gender = $result_values[0]["gender"];
+            $description = $result_values[0]["description"];
+            $is_active = $result_values[0]["is_active"];
+
+
+
+            $btn_text = "Update";
+            $btn_action = "update";
+        } else {
+            $btn_text = "Error";
+            $btn_action = "error";
+            $is_btn_disable = "disabled='disabled'";
+        }
+    }
+}
+
+$active_status_options = active_status($is_active);
+
+$benefit_category_options = benefit_category();
+$benefit_category_options = select_option($benefit_category_options, 'Select Category', $benefit_category);
+
+
+
+
+$hostel_gender_name_options = [
+    "1" => [
+        "unique_id" => "Both",
+        "value" => "Both",
+    ],
+    "2" => [
+        "unique_id" => "65584660e85afd2401",
+        "value" => "Female",
+    ],
+    "3" => [
+        "unique_id" => "65584660e85afd2400",
+        "value" => "Male",
+    ]
+
+];
+
+$hostel_gender_name_options = select_option($hostel_gender_name_options, "Select", $gender);
+
+?>
+<!-- Modal with form -->
+
+<div class="content-page">
+    <div class="content">
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box">
+
+                        <h4 class="page-title">Benefit Item Form</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+            <div class="row">
+                <div class="col-12">
+
+
+                    <div class="row">
+
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-body">
+
+
+
+                                    <form class="was-validated" autocomplete="off">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="mb-3">
+                                                    <label>Benefit Category</label>
+                                                    <select name="benefit_category" id="benefit_category"
+                                                        class="select2 form-control" required>
+                                                        <?php echo $benefit_category_options; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="mb-3">
+                                                    <label>Benefit Item</label>
+                                                    <input type="text" class="form-control" id="benefit_item"
+                                                        name="benefit_item" value="<?= $benefit_item; ?>" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="mb-3">
+                                                    <label>Select Gender</label>
+                                                    <select name="gender" id="gender" class="select2 form-control"
+                                                        required>
+                                                        <?php echo $hostel_gender_name_options; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="mb-3">
+                                                    <label>Description</label>
+                                                    <input type="text" class="form-control" id="description"
+                                                        name="description" value="<?= $description; ?>">
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-3">
+                                                <div class="mb-3">
+                                                    <label>Status</label>
+                                                    <select name="is_active" id="is_active" class="select2 form-control"
+                                                        required>
+                                                        <?php echo $active_status_options; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="btns">
+                                            <?php echo btn_cancel($btn_cancel); ?>
+                                            <?php echo btn_createupdate($folder_name_org, $unique_id, $btn_text); ?>
+                                        </div>
+                                    </form>
+
+                                </div> <!-- end card-body -->
+                            </div> <!-- end card-->
+                        </div> <!-- end col -->
+
+                    </div>
+
+
+
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
