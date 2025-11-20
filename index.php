@@ -451,7 +451,7 @@ if ($result_values->status) {
                         <li>
                             <div class="box">
                                 <i class="mdi mdi-school-outline"></i>
-                                <h5 class="spe-h5">Students </h5>
+                                <h5 class="spe-h5">Student </h5>
                                 <a href="adhmStudent/index.php" class="a-btn">Login</a>
                             </div>
 
