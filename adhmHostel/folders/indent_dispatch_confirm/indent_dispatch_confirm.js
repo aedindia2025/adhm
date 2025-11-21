@@ -33,7 +33,7 @@ function init_datatable(table_id = '', form_name = '', action = '') {
 		"action": action
 	};
 	var ajax_url = sessionStorage.getItem("folder_crud_link");
-	
+
 	var datatable = table.DataTable({
 		"ajax": {
 			url: ajax_url,
@@ -376,12 +376,60 @@ $(document).on('click', '#generatePDF', function () {
 });
 
 // 🔹 2️⃣ RETURNED (Orange button) — Remarks mandatory
+// $(document).on('click', '.btn-approve', function () {
+// 	let section = $(this).closest('.status-actions');
+// 	let remarksBox = section.find('.remarks');
+// 	section.find('.remarks-section').removeClass('d-none');
+// 	section.data('selected-status', 'Received & Approved');
+// 	remarksBox.attr('placeholder', 'Enter remarks');
+// });
+
+// 🔹 APPROVE button click
 $(document).on('click', '.btn-approve', function () {
+
+	let row = $(this).closest('tr');
 	let section = $(this).closest('.status-actions');
-	let remarksBox = section.find('.remarks');
+
+	// 🔥 Quantities from table
+	let dispatch_qty = parseFloat(row.find('td:eq(2)').text()) || 0;  // Quantity column
+	let received_qty = parseFloat(row.find('.received_qty').val()) || 0; // Received Qty input
+
+	// 🔥 Hidden data attributes
+	let unique_id = row.data('unique_id');
+	let item_id = row.data('item_id');
+	let category = row.data('category');
+
+	// 🔥 Unit
+	let item_unit = row.find('td:eq(3)').text() || '';
+
+	// ------------------------------------------------------------
+	// 1️⃣ DIRECT APPROVAL — when received == dispatched
+	// ------------------------------------------------------------
+	if (received_qty === dispatch_qty) {
+
+		updateDispatchStatus(
+			row,
+			row.find('td:last'),     // status cell reference
+			unique_id,
+			item_id,
+			'Received & Approved',
+			received_qty,
+			'',                      // No remarks needed
+			item_unit,
+			category
+		);
+
+		return;
+	}
+
+	// ------------------------------------------------------------
+	// 2️⃣ REQUIRE REMARKS — when received < dispatched
+	// ------------------------------------------------------------
 	section.find('.remarks-section').removeClass('d-none');
 	section.data('selected-status', 'Received & Approved');
-	remarksBox.attr('placeholder', 'Enter remarks');
+
+	let remarksBox = section.find('.remarks');
+	remarksBox.attr('placeholder', 'Enter remarks...');
 });
 
 // 🔹 2️⃣ RETURNED (Orange button) — Remarks mandatory
@@ -400,7 +448,6 @@ $(document).on('click', '.btn-not', function () {
 	section.find('.remarks-section').removeClass('d-none');
 	section.data('selected-status', 'Not Received');
 	remarksBox.attr('placeholder', 'Enter reason');
-
 });
 
 // 🔹 4️⃣ CONFIRM after remarks entered
@@ -453,7 +500,7 @@ function updateDispatchStatus(row, cell, unique_id, item_id, status, received_qt
 	let ajax_url = sessionStorage.getItem("folder_crud_link");
 	var screen_unique_id = $('#screen_unique_id').val();
 	var stock_id = $('#stock_id').val();
-	
+
 	$.ajax({
 		url: ajax_url,
 		type: 'POST',
@@ -476,21 +523,39 @@ function updateDispatchStatus(row, cell, unique_id, item_id, status, received_qt
 			try { res = JSON.parse(response); } catch { res = {}; }
 
 			if (res.status === 'success') {
-				// Determine color for final status text
-				let colorClass =
-					status === "Received & Approved" ? "text-success fw-bold" :
-						status === "Received & Returned" ? "text-warning fw-bold" :
-							"text-danger fw-bold";
 
-				// ✅ Replace buttons with colored text + remarks (inside same cell)
+				// --------------------------------------------------
+				// COLOR & TEXT FORMATTING BASED ON FINAL STATUS
+				// --------------------------------------------------
+				let colorClass = "";
+				let extraNote = "";
+
+				if (status === "Received & Approved") {
+					colorClass = "text-success fw-bold";
+					extraNote = `<div class="text-muted small">(${remarks})</div>`;
+				}
+				else if (status === "Received & Returned") {
+					colorClass = "text-warning fw-bold";
+					extraNote = remarks ? `<div class="text-muted small mt-1">(${remarks})</div>` : "";
+				}
+				else if (status === "Not Received") {
+					colorClass = "text-danger fw-bold";
+					extraNote = remarks ? `<div class="text-muted small mt-1">(${remarks})</div>` : "";
+				}
+
+				// --------------------------------------------------
+				// REPLACE BUTTONS WITH FINAL STATUS FORMAT
+				// --------------------------------------------------
 				cell.html(`
 					<div class="status-display">
 						<span class="${colorClass}">${status}</span>
-						${remarks ? `<div class="text-muted small mt-1">(${remarks})</div>` : ''}
+						${extraNote}
 					</div>
 				`);
 
-				// ✅ Lock input fields
+				// --------------------------------------------------
+				// LOCK THE RECEIVED QTY INPUT
+				// --------------------------------------------------
 				row.find('.received_qty').prop('readonly', true);
 
 				Swal.fire({
@@ -500,7 +565,7 @@ function updateDispatchStatus(row, cell, unique_id, item_id, status, received_qt
 				});
 			} else {
 				Swal.fire({
-					icon: 'error',
+					icon: 'warning',
 					title: 'Update Failed',
 					text: res.message || 'Please try again.'
 				});

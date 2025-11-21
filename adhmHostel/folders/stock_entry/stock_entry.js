@@ -374,11 +374,12 @@ function stock_entry_delete(unique_id = "") {
 		var amount = $("#amount").val();
 		
 		var is_form = form_validity_check("was-validated");
+        var entry_date = document.getElementById('entry_date').value;
 		
 		if (is_form) {
 			
 			var data = $(".was-validated").serialize();
-			data += "&unique_id=" + unique_id + "&amount=" + amount + "&unit=" + unit + "&screen_unique_id=" + screen_unique_id + "&action=stock_in_add_update";
+			data += "&unique_id=" + unique_id + "&amount=" + amount + "&unit=" + unit + "&entry_date=" + entry_date +"&screen_unique_id=" + screen_unique_id + "&action=stock_in_add_update";
 			
 			var ajax_url = sessionStorage.getItem("folder_crud_link");
 			var url = '';

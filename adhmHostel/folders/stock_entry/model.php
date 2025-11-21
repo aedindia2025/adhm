@@ -427,12 +427,11 @@ function stock_id()
                                                     <?php echo $item_stock_inward; ?>
                                                 </select>
                                             </div>
-                                            <div class="col-md-2 fm">
+                                            <!-- <div class="col-md-2 fm">
                                                 <label for="simpleinput" class="form-label">Remaining Monthly Indent<span style="color:red">*</span></label>
                                                 <br>
                                                 <label id="month_indentlabel"></label>
-                                                <input type="hidden" class="form-control" name="month_indent" id="month_indent">
-                                            </div>
+                                            </div> -->
                                             <div class="col-md-2 fm">
                                                 <label for="simpleinput" class="form-label">Quantity<span style="color:red">*</span></label>
                                                 <input type="text" class="form-control" name="qty" id="qty" 
@@ -451,7 +450,7 @@ function stock_id()
                                                     onkeyup="get_total()" oninput="dec_number(this)" required>
                                             </div>
 
-                                            <div class="col-md-2 fm">
+                                            <div class="col-md-2 fm mt-1">
                                                 <label for="simpleinput" class="form-label">Amount</label>
                                                 <input type="text" class="form-control" name="amount" id="amount"
                                                      required disabled>
@@ -476,6 +475,10 @@ function stock_id()
                                                     style="float: right;">
                                             </div>
                                             </center>
+                                            </div>
+                                            <div>
+                                                <label id="month_indentlabel"></label>
+                                                <input type="hidden" class="form-control" name="month_indent" id="month_indent">
                                             </div>
                                     </form>
                                     <div class=" mb-4">
@@ -622,14 +625,14 @@ function stock_id()
                                         <?php echo btn_cancel($btn_cancel); ?>
 
                                         <?php if ($main_unique_id == '') { ?>
-                                                                    <button type="button"
-                                                                        class="btn btn-primary m-t-15 waves-effect createupdate_btn"
-                                                                        onclick="stock_entry_cu('')">Save</button>
+                                                                                                    <button type="button"
+                                                                                                        class="btn btn-primary m-t-15 waves-effect createupdate_btn"
+                                                                                                        onclick="stock_entry_cu('')">Save</button>
                                         <?php }
                                         if ($main_unique_id != '') { ?>
-                                                                    <button type="button"
-                                                                        class="btn btn-primary m-t-15 waves-effect createupdate_btn"
-                                                                        onclick="stock_entry_cu('')">Update</button>
+                                                                                                    <button type="button"
+                                                                                                        class="btn btn-primary m-t-15 waves-effect createupdate_btn"
+                                                                                                        onclick="stock_entry_cu('')">Update</button>
                                         <?php } ?>
                                     </div>
                                 </div>
@@ -713,16 +716,31 @@ var screen_unique_id=$('#screen_unique_id').val();
         url: ajax_url,
         data: data,
         dataType: "json", // <-- Tell jQuery to expect JSON
+        // success: function (response) {
+        //     // Populate the readonly input with the unit
+        //     $("#unit").val(response.unit ?? '');
+
+        //     // Update label
+        //     $("#month_indentlabel").text(response.available_qty ?? 0);
+
+        //     // Update hidden input
+        //     $("#month_indent").val(response.available_qty ?? 0);
+        // },
         success: function (response) {
-            // Populate the readonly input with the unit
-            $("#unit").val(response.unit ?? '');
 
-            // Update label
-            $("#month_indentlabel").text(response.available_qty ?? 0);
+    $("#unit").val(response.unit ?? '');
 
-            // Update hidden input
-            $("#month_indent").val(response.available_qty ?? 0);
-        },
+    $("#month_indentlabel")
+    .text(response.msg)
+    .css({
+        "color": response.color,
+        "font-size": "16px",     // <<< Increase size here
+        "font-weight": "bold"    // optional
+    });
+
+    $("#month_indent").val(response.available_qty);
+
+},
         error: function () {
             console.error("Failed to fetch unit");
         }

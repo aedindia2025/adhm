@@ -4578,7 +4578,7 @@ function item_categoryindent($unique_id = "")
     ];
 
     // Default where condition
-    $where = "is_delete = 0";
+    $where = "is_delete = 0 and category !='ec8c229e224e3c7879'";
 
     if ($unique_id) {
         // If specific unique_id is provided, override where

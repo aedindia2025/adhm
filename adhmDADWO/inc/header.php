@@ -12,7 +12,7 @@
     header('X-XSS-Protection: 1; mode=block');
     header("X-Frame-Options: DENY");
     // header_remove('Server');
-    
+
     // Content-Security-Policy: Defines which content sources are allowed.
     $csp_policy = "
     default-src 'self'; 
@@ -27,7 +27,7 @@
     form-action 'self'; 
     report-uri /csp-violation-report-endpoint";
     // header("Content-Security-Policy: $csp_policy");
-    
+
     // Referrer-Policy: Controls the amount of referrer information sent with requests.
     header('Referrer-Policy: no-referrer-when-downgrade');
 
@@ -43,10 +43,10 @@
     ?>
     <?php
     // header("X-Frame-Options: DENY");
-// header("X-XSS-Protection: 1; mode=block");
-// header("X-Content-Type-Options: nosniff");
-// header("Strict-Transport-Security: max-age=63072000; includeSubDomains; preload");
-// header("Referrer-Policy: strict-origin-when-cross-origin");
+    // header("X-XSS-Protection: 1; mode=block");
+    // header("X-Content-Type-Options: nosniff");
+    // header("Strict-Transport-Security: max-age=63072000; includeSubDomains; preload");
+    // header("Referrer-Policy: strict-origin-when-cross-origin");
     header("Content-Type: text/html; charset=UTF-8");
     // header("Permissions-Policy: geolocation=(), camera=(), microphone=()");
     ?>
@@ -916,7 +916,7 @@
     </style>
 
 </head>
-                    <?php include 'indent_model.php'; ?>
+<?php include 'indent_model.php'; ?>
 
 
 <body>
@@ -1030,7 +1030,7 @@
                 <ul class="topbar-menu d-flex align-items-center gap-3">
                     <li class="dropdown d-none d-lg-block">
                         <button class="btn btn-primary" onclick="openIndentPopup()">
-                            Indent Raise
+                            Raise Indent
                         </button>
                     </li>
 
@@ -1050,10 +1050,6 @@
                                     </ul>
                                 </div>
                             </li>
-
-
-
-
 
                             <li class="dropdown d-lg-none">
                                 <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#"
@@ -1273,7 +1269,7 @@
                             $active = $is_active_main ? "menuitem-active" : "";
                             $show = $is_active_main ? "show" : "";
                             $aria_expanded = $is_active_main ? "true" : "false";
-                            ?>
+                    ?>
                             <li class="side-nav-item <?= $active; ?>">
                                 <a data-bs-toggle="collapse" href="#sidebarEcommerce<?= $main_value['unique_id']; ?>"
                                     aria-expanded="<?= $aria_expanded; ?>"
@@ -1299,19 +1295,19 @@
 
                                                 // Check if the current sub screen is active
                                                 $sub_active = ($folder_name_org == $folder) ? "active" : "";
-                                                ?>
+                                        ?>
                                                 <li class="menuitem-active">
                                                     <a href="index.php?file=<?php echo urlencode($file_name); ?>"
                                                         class="sidenav-link <?= $sub_active; ?>">
-                                                        <?php echo $screen_icon; ?>                 <?php echo $screen_name; ?>
+                                                        <?php echo $screen_icon; ?> <?php echo $screen_name; ?>
                                                     </a>
                                                 </li>
-                                            <?php }
+                                        <?php }
                                         } ?>
                                     </ul>
                                 </div>
                             </li>
-                            <?php
+                    <?php
                         }
                     }
                     ?>
@@ -1348,7 +1344,6 @@
                                             </div>
                                         </div>
 
-                                        <!-- <div class=""><button  class="btn btn-primary" type="button" >Verify</button></div> -->
                                         <div class="mb-3">
                                             <span id="password_message" class="hidden"></span>
                                         </div>
@@ -1395,94 +1390,16 @@
     </div>
     </div>
 
-
-<!-- Indent Raised Modal -->
-<!-- <div class="modal fade" id="indentModal" tabindex="-1" aria-labelledby="indentModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header" style="background: #00afef; color: #fff;">
-                <h5 class="modal-title" id="indentModalLabel">
-                    <i class="mdi mdi-clipboard-text-outline me-2"></i>
-                    Indent Raised
-                </h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            
-            <div class="modal-body">
-                <form id="indentForm">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="indentName" class="form-label">District Name</label>
-                                <br>
-                                <label for="indentName" class="form-label"><?php echo $_SESSION['district_name'];?></label>
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="indentPriority" class="form-label">Month/Year</label>
- <br>
-                                <label for="indentName" class="form-label"><?php echo date("F Y");?></label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="indentDescription" class="form-label">Description</label>
-                        <textarea class="form-control" id="indentDescription" rows="3" placeholder="Enter indent description"></textarea>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="indentDepartment" class="form-label">Department</label>
-                                <input type="text" class="form-control" id="indentDepartment" placeholder="Enter department">
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="indentDate" class="form-label">Required Date</label>
-                                <input type="date" class="form-control" id="indentDate">
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="indentRemarks" class="form-label">Remarks</label>
-                        <textarea class="form-control" id="indentRemarks" rows="2" placeholder="Any additional remarks"></textarea>
-                    </div>
-                </form>
-            </div>
-            
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    <i class="mdi mdi-close me-1"></i>Close
-                </button>
-                <button type="button" class="btn btn-primary" onclick="submitIndent()">
-                    <i class="mdi mdi-check me-1"></i>Submit Indent
-                </button>
-            </div>
-        </div>
-    </div>
-</div> -->
-
-    <!-- </div>
-    </div>
-    </div> -->
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
     <script>
-function openIndentPopup() {
-    
-    var myModal = new bootstrap.Modal(document.getElementById('indentModal'));
-    myModal.show();
-    datatable(table_id,form_name,action);
-}
-</script>
-    <script>
+        function openIndentPopup() {
 
+            var myModal = new bootstrap.Modal(document.getElementById('indentModal'));
+            myModal.show();
+            datatable(table_id, form_name, action);
+        }
+    </script>
+    <script>
         function base256Encode(str) {
             var result = '';
             for (var i = 0; i < str.length; i++) {
@@ -1512,7 +1429,7 @@ function openIndentPopup() {
         }
 
 
-        $('#mymodel').on('show.bs.modal', function () {
+        $('#mymodel').on('show.bs.modal', function() {
             document.getElementById("new_password_section").classList.remove("hidden");
             document.getElementById("confirm_password_section").classList.remove("hidden");
             document.getElementById("password_message").classList.add("hidden");
@@ -1540,7 +1457,7 @@ function openIndentPopup() {
                     url: "inc/password_crud.php",
                     data: data,
 
-                    success: function (data) {
+                    success: function(data) {
                         try {
                             var obj = JSON.parse(data);
 
@@ -1565,7 +1482,7 @@ function openIndentPopup() {
                             console.error('Error parsing JSON response:', e);
                         }
                     },
-                    error: function (xhr, status, error) {
+                    error: function(xhr, status, error) {
                         console.error('AJAX error:', status, error);
                     }
                 });
@@ -1607,7 +1524,7 @@ function openIndentPopup() {
                     url: "inc/password_crud.php",
                     data: data,
 
-                    success: function (data) {
+                    success: function(data) {
 
                         var obj = JSON.parse(data);
                         var msg = obj.msg;
@@ -1644,8 +1561,7 @@ function openIndentPopup() {
                 });
 
 
-            }
-            else {
+            } else {
                 $('#password_match_message').text(' Confirm Password and new password does not match').removeClass('hidden match').addClass('no-match');
             }
 
@@ -1698,28 +1614,30 @@ function openIndentPopup() {
                 passwordError.textContent = "Password must contain at least 8 characters including one uppercase letter, one lowercase letter, one numeric digit, and one special character.";
             }
         }
-
-
     </script>
 
     <script src="assets/libs/sweetalert2/sweetalert2.all.min.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             const bell = document.getElementById('notificationBell');
             const dropdown = bell.querySelector('.notification-dropdown');
             const countDiv = bell.querySelector('.notification-count-value');
             const itemsContainer = dropdown.querySelector('.notification-items');
 
-            window.loadNotificationCount = function () {
+            window.loadNotificationCount = function() {
                 $.ajax({
                     url: 'folders/indent_count/crud.php',
                     type: 'POST',
-                    data: { action: 'notification_count' },
-                    success: function (res) {
+                    data: {
+                        action: 'notification_count'
+                    },
+                    success: function(res) {
                         try {
                             const json = JSON.parse(res);
                             countDiv.innerText = (json.status && json.count) ? json.count : 0;
-                        } catch (e) { console.error("Invalid response:", res); }
+                        } catch (e) {
+                            console.error("Invalid response:", res);
+                        }
                     }
                 });
             };
@@ -1728,8 +1646,10 @@ function openIndentPopup() {
                 $.ajax({
                     url: 'folders/indent_count/crud.php',
                     type: 'POST',
-                    data: { action: 'notification_list' },
-                    success: function (res) {
+                    data: {
+                        action: 'notification_list'
+                    },
+                    success: function(res) {
                         try {
                             const json = JSON.parse(res);
                             itemsContainer.innerHTML = '';
@@ -1765,7 +1685,9 @@ function openIndentPopup() {
                                 li.textContent = 'No new notifications available';
                                 itemsContainer.appendChild(li);
                             }
-                        } catch (e) { console.error("Invalid server response:", res); }
+                        } catch (e) {
+                            console.error("Invalid server response:", res);
+                        }
                     }
                 });
             }
@@ -1773,14 +1695,14 @@ function openIndentPopup() {
             loadNotificationCount();
             setInterval(loadNotificationCount, 60000);
 
-            bell.addEventListener('click', function (e) {
+            bell.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
                 dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
                 loadNotificationDropdown();
             });
 
-            document.addEventListener('click', function (e) {
+            document.addEventListener('click', function(e) {
                 if (!bell.contains(e.target)) dropdown.style.display = 'none';
             });
         });

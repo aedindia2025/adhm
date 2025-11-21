@@ -97,7 +97,10 @@ $readonlyClass = !empty($unique_id) ? 'readonly-field' : '';
         opacity: 0.9;
     }
 </style>
-
+<?php
+$nextMonth = date('Y-m', strtotime('first day of next month'));
+$selectedMonth = $month ?? $nextMonth;
+?>
 <div class="content-page">
     <div class="content">
         <!-- Start Content-->
@@ -134,7 +137,7 @@ $readonlyClass = !empty($unique_id) ? 'readonly-field' : '';
                                         <div class="col-md-3 fm mb-3">
                                             <label class="form-label">Month</label>
                                             <input type="month" id="month" name="month"
-                                                class="form-control <?= $readonlyClass ?>" value="<?= $month ?>"
+                                                class="form-control <?= $readonlyClass ?>" value="<?= $selectedMonth ?>"
                                                 <?= !empty($unique_id) ? 'readonly' : '' ?>>
                                         </div>
                                     </div>
@@ -195,3 +198,21 @@ $readonlyClass = !empty($unique_id) ? 'readonly-field' : '';
         </div>
     </div>
 </div>
+
+
+
+<script>
+document.getElementById("month").addEventListener("input", function () {
+    let selected = this.value;
+    let minMonth = "<?= $nextMonth ?>";
+
+    // Allow future months
+    if (selected >= minMonth) {
+        return; 
+    }
+
+    // Block past months
+    alert("You cannot select current or previous months.");
+    this.value = minMonth;
+});
+</script>

@@ -57,6 +57,11 @@ $district_name_options = select_option($district_name_options, "Select District"
         </div>
     </div>
 </div>
+<?php
+$nextMonth = date('Y-m', strtotime('first day of next month'));
+$selectedMonth = $month ?? $nextMonth;
+?>
+
 
 <!-- Copy Modal -->
 <div class="modal fade" id="copyModal" tabindex="-1" aria-labelledby="copyModalLabel" aria-hidden="true">
@@ -73,10 +78,17 @@ $district_name_options = select_option($district_name_options, "Select District"
                 <input type="hidden" id="csrf_token" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
 
                 <div class="col-md-12 mb-3">
-                    <label class="form-label">District</label>
+                    <!-- <label class="form-label">District</label>
                     <select name="district" id="modal_district" class="form-control select2" multiple required>
                         <?= $district_name_options ?>
-                    </select>
+                    </select> -->
+
+<label class="form-label">Month</label>
+                 <input type="month" id="month" name="month"
+    class="form-control <?= $readonlyClass ?>"
+    value="<?= $selectedMonth ?>"
+    min="<?= $nextMonth ?>">
+
                 </div>
             </div>
             <div class="modal-footer">
@@ -86,3 +98,20 @@ $district_name_options = select_option($district_name_options, "Select District"
         </div>
     </div>
 </div>
+
+<script>
+document.getElementById("month").addEventListener("input", function () {
+    let selected = this.value;
+    let minMonth = "<?= $nextMonth ?>";
+
+    // Allow future months
+    if (selected >= minMonth) {
+        return; 
+    }
+
+    // Block past months
+    alert("You cannot select current or previous months.");
+    this.value = minMonth;
+});
+</script>
+

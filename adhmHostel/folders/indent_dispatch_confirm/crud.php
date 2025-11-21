@@ -216,7 +216,6 @@ switch ($action) {
         break;
 
     case 'update_dispatch_status':
-
         $unique_id = $_POST['unique_id'] ?? '';
         $item_id = $_POST['item_id'] ?? '';
         $status = $_POST['status'] ?? '';
@@ -230,10 +229,27 @@ switch ($action) {
         $hostel_id = $_SESSION['hostel_id'];
         $district_id = $_SESSION['district_id'];
         $taluk_id = $_SESSION['taluk_id'];
-        $academic_year = $_SESSION['academic_year'];
 
-        $screen_id = $screen_unique_id;
+        $academic_year = 0;
+$sql_academic = "SELECT unique_id 
+                 FROM academic_year_creation 
+                 WHERE amc_year = ? 
+                   AND is_delete = 0 
+                 LIMIT 1";
+
+$stmtA = $mysqli->prepare($sql_academic);
+$stmtA->bind_param("s", $_SESSION["acc_year"]);
+$stmtA->execute();
+$stmtA->bind_result($academic_year);
+$stmtA->fetch();
+$stmtA->close();
+
+
+
+$screen_id = $screen_unique_id;
         $entry_date = date('Y-m-d');
+        $monthyear = date('Y-m');
+
         $bill_no = "";
         $category_name = $_POST['category'];
         $qty = $received_qty;
@@ -243,7 +259,49 @@ switch ($action) {
         $is_active = 1;
         $is_delete = 0;
 
-        // Check required fields
+
+        // Get total stock inward for the day
+// $stockvalue = 0;
+// $sql_stock = "SELECT SUM(qty) AS total_qty 
+//               FROM stock_inward 
+//               WHERE entry_date = ? 
+//                 AND hostel_unique_id = ? 
+//                 AND item_name = ? 
+//                 AND is_delete = 0";
+
+// $stmtStock = $mysqli->prepare($sql_stock);
+// $stmtStock->bind_param("sss", $entry_date, $hostel_id, $item_id);
+// $stmtStock->execute();
+// $stmtStock->bind_result($stockvalue);
+// $stmtStock->fetch();
+// $stmtStock->close();
+// // Get monthly indent quantity
+// $monthlyindent = 0;
+// $sql_indent = "SELECT quantity 
+//                FROM monthly_indent_items 
+//                WHERE month_year = ? 
+//                  AND hostel_id = ? 
+//                  AND item = ? 
+//                  AND is_delete = 0";
+
+// $stmtIndent = $mysqli->prepare($sql_indent);
+// $stmtIndent->bind_param("sss", $monthyear, $hostel_id, $item_id);
+// $stmtIndent->execute();
+// $stmtIndent->bind_result($monthlyindent);
+// $stmtIndent->fetch();
+// $stmtIndent->close();
+// print_r($monthlyindent);
+
+
+// Calculate
+// $totalstock = $stockvalue + $received_qty;
+
+// // Compare
+// if ($totalstock > $monthlyindent) {
+//     echo json_encode(["status" => "error", "message" => "Not allowed: exceeds monthly indent quantity"]);
+//     exit;
+// }
+
         if (!$item_id || !$status || !$hostel_unique_id || !$month_fill) {
             echo json_encode(['status' => 'error', 'message' => 'Missing required fields']);
             exit;

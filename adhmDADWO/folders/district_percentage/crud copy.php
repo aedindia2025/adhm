@@ -86,10 +86,10 @@ switch ($action) {
             }
 
             if ($stmt->execute()) {
-
+                
                 $query_1 = "UPDATE $table SET district = ?, month = ? WHERE unique_id = ?";
-                $stmt = $mysqli->prepare($query_1);
-                $stmt->bind_param("sss", $district, $month, $unique_id);
+$stmt = $mysqli->prepare($query_1);
+$stmt->bind_param("sss", $district, $month, $unique_id);
 
                 $msg = $unique_id ? "update" : "create";
                 $status = true;
@@ -133,7 +133,7 @@ switch ($action) {
             "screen_unique_id",
         ];
         $table_details = $table_main . " , (SELECT @a:= ?) AS a ";
-        $where = "is_delete = 0 AND district = '" . $_SESSION['district_id'] . "'";
+       $where = "is_delete = 0 AND district = '" . $_SESSION['district_id'] . "'";
 
         $order_by = "";
 
@@ -378,7 +378,7 @@ switch ($action) {
                 SET  hostel_type = ?,  percentage = ? WHERE unique_id = ? AND is_delete = 0";
 
                 $stmt = $mysqli->prepare($sql);
-                $stmt->bind_param("sss", $hostel_type, $percentage, $sublist_unique_id);
+                $stmt->bind_param("sss",  $hostel_type,  $percentage, $sublist_unique_id);
 
                 if ($stmt->execute()) {
                     $msg = "update";
@@ -392,7 +392,7 @@ switch ($action) {
                 VALUES (?, ?, ?, ?)";
 
                 $stmt = $mysqli->prepare($sql);
-                $stmt->bind_param("ssss", $new_id, $screen_unique_id, $hostel_type, $percentage);
+                $stmt->bind_param("ssss", $new_id, $screen_unique_id, $hostel_type,  $percentage);
 
                 if ($stmt->execute()) {
                     $msg = "create";
@@ -456,6 +456,7 @@ switch ($action) {
 
         echo $item_name_options;
         break;
+
     case 'copy_record':
 
         $csrf_token = $_POST['csrf_token'] ?? '';
@@ -464,109 +465,89 @@ switch ($action) {
         }
 
         $screen_unique_id = sanitizeInput($_POST['screen_unique_id'] ?? '');
+        $new_districts = $_POST['district'] ?? []; // Array of districts
         $month = sanitizeInput($_POST['month'] ?? '');
 
+        // Remove any empty values (like the first empty one if it starts with a comma)
+        $new_districts = array_filter($new_districts, fn($v) => !empty(trim($v)));
 
-        // 1️⃣ Fetch MASTER record (we need its district)
-        $stmt = $mysqli->prepare("
-        SELECT district 
-        FROM district_percentage 
-        WHERE screen_unique_id = ? AND is_delete = 0 
-        LIMIT 1
-    ");
+        if (empty($new_districts)) {
+            echo json_encode(["status" => false, "msg" => "No district selected."]);
+            break;
+        }
+
+        // Fetch master record by screen_unique_id
+        $stmt = $mysqli->prepare("SELECT * FROM district_percentage WHERE screen_unique_id = ? AND is_delete = 0 LIMIT 1");
         $stmt->bind_param("s", $screen_unique_id);
         $stmt->execute();
         $master = $stmt->get_result()->fetch_assoc();
         $stmt->close();
 
         if (!$master) {
-            echo json_encode(["status" => false, "msg" => "Master record not found"]);
+            echo json_encode(["status" => false, "msg" => "Original master record not found."]);
             break;
         }
 
-        // District from master
-        $district_from_master = $master['district'];
-
-
-        // 2️⃣ Check if (district, month) already exists
-        $stmt = $mysqli->prepare("
-        SELECT COUNT(*) AS cnt 
-        FROM district_percentage 
-        WHERE district = ? AND month = ? AND is_delete = 0
-    ");
-        $stmt->bind_param("ss", $district_from_master, $month);
-        $stmt->execute();
-        $exists = $stmt->get_result()->fetch_assoc()['cnt'];
-        $stmt->close();
-
-        if ($exists > 0) {
-            echo json_encode(["status" => false, "msg" => "Record already exists for this district & month"]);
-            break;
-        }
-
-
-        // 3️⃣ Fetch SUBLIST records (based on old screen_unique_id)
-        $stmt = $mysqli->prepare("
-        SELECT hostel_type, percentage 
-        FROM district_percentage_sub 
-        WHERE screen_unique_id = ? AND is_delete = 0
-    ");
+        // Fetch related sublist records
+        $stmt = $mysqli->prepare("SELECT * FROM district_percentage_sub WHERE screen_unique_id = ? AND is_delete = 0");
         $stmt->bind_param("s", $screen_unique_id);
         $stmt->execute();
         $sublist = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $stmt->close();
 
+        foreach ($new_districts as $new_district) {
 
-        // 4️⃣ Insert NEW MASTER record
-        $new_unique_id = unique_id();
-        $new_screen_id = unique_id();
-
-        $stmt = $mysqli->prepare("
-        INSERT INTO district_percentage 
-        (unique_id, screen_unique_id, district, month, is_delete)
-        VALUES (?, ?, ?, ?, 0)
-    ");
-        $stmt->bind_param(
-            "ssss",
-            $new_unique_id,
-            $new_screen_id,
-            $district_from_master,
-            $month
-        );
-        $stmt->execute();
-        $stmt->close();
-
-
-        // 5️⃣ Insert NEW SUBLIST records
-        foreach ($sublist as $row) {
-
-            $sub_unique_id = unique_id();
-            $hostel_type = $row['hostel_type'];
-            $percentage = $row['percentage'];
-
-            $stmt = $mysqli->prepare("
-            INSERT INTO district_percentage_sub 
-            (unique_id, screen_unique_id, district, month, hostel_type, percentage, is_delete)
-            VALUES (?, ?, ?, ?, ?, ?, 0)
-        ");
-            $stmt->bind_param(
-                "ssssss",
-                $sub_unique_id,
-                $new_screen_id,
-                $district_from_master,   // ✔ Use district from master
-                $month,                  // ✔ Use POST month
-                $hostel_type,
-                $percentage
-            );
+            // Check if district-month already exists in master
+            $stmt = $mysqli->prepare("SELECT COUNT(*) as cnt FROM district_percentage WHERE district = ? AND month = ? AND is_delete = 0");
+            $stmt->bind_param("ss", $new_district, $month);
             $stmt->execute();
+            $exists = $stmt->get_result()->fetch_assoc()['cnt'];
+            $stmt->close();
+
+            if ($exists > 0)
+                continue; // Skip existing district-month
+
+            // Check sublist duplicates
+            $stmt = $mysqli->prepare("SELECT COUNT(*) as cnt FROM district_percentage_sub WHERE district = ? AND month = ? AND is_delete = 0");
+            $stmt->bind_param("ss", $new_district, $month);
+            $stmt->execute();
+            $exists_sublist = $stmt->get_result()->fetch_assoc()['cnt'];
+            $stmt->close();
+
+            if ($exists_sublist > 0)
+                continue; // Skip existing sublist
+
+            // Generate new IDs for master
+            $new_unique_id = unique_id();
+            $new_screen_id = unique_id();
+
+            // Insert master record for this district
+            $stmt = $mysqli->prepare("INSERT INTO district_percentage (unique_id, screen_unique_id, district, month, is_delete) VALUES (?, ?, ?, ?, 0)");
+            $stmt->bind_param("ssss", $new_unique_id, $new_screen_id, $new_district, $month);
+            $stmt->execute();
+            $stmt->close();
+
+            // Insert sublist records for this district
+            foreach ($sublist as $row) {
+                $sub_unique_id = unique_id();
+                $hostel_type = $row['hostel_type'];
+                $percentage = $row['percentage'];
+                $row_month = $row['month'];
+
+                $stmt = $mysqli->prepare("INSERT INTO district_percentage_sub (unique_id, screen_unique_id, district, month, hostel_type, percentage, is_delete) VALUES (?, ?, ?, ?, ?, ?, 0)");
+                $stmt->bind_param("ssssss", $sub_unique_id, $new_screen_id, $new_district, $row_month, $hostel_type, $percentage);
+                $stmt->execute();
+            }
         }
 
+        $status = true;
+        $msg = "add";
+        $description = "Copied Successfully";
 
-        // 6️⃣ Return success
         echo json_encode([
-            "status" => true,
-            "msg" => "add",
-            "description" => "District and sublist copied successfully."
+            "status" => $status,
+            "msg" => $msg,
+            "description" => "Selected districts copied successfully."
         ]);
         break;
 
@@ -608,8 +589,7 @@ switch ($action) {
         break;
 }
 
-function formatMonthYear($value)
-{
+function formatMonthYear($value) {
     $date = DateTime::createFromFormat('Y-m', $value);
     return $date ? $date->format('F, Y') : '';
 }

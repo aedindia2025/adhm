@@ -167,7 +167,8 @@ switch ($action) {
 
                 $value['month'] = formatMonthYear($value['month']);
 
-                $value['unique_id'] = $btn_update . ' ' . $btn_delete . ' &nbsp;&nbsp; ' . $btn_copy;
+                $value['unique_id'] = $btn_update . ' ' . $btn_delete;
+                // $value['unique_id'] =$btn_copy;
                 $data[] = array_values($value);
             }
 

@@ -15,6 +15,7 @@ try {
     die("<pre style='color:red;'>❌ DB Connection failed: " . $e->getMessage() . "</pre>");
 }
 
+
 $month_year = date('Y-m');
 $totalDays = cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
 $prev_month = date('Y-m', strtotime('-1 month'));

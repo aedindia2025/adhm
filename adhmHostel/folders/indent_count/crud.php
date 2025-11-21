@@ -107,7 +107,7 @@ switch ($action) {
                         </button>';
 
                 // Determine what to show in the button column
-                if (!empty($value['percentage_applied']) && $value['percentage_applied'] != "-") {
+                if (!empty($value['is_online']) && $value['is_online'] == 1) {
                     // If percentage is applied, no button
                     $value['unique_id'] = "-";
                 } elseif (!empty($value['dadwo_requested_count']) && $value['dadwo_requested_count'] != "-") {

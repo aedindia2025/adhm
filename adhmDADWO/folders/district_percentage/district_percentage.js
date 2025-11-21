@@ -157,6 +157,7 @@ function district_percentage_cu() {
 						}
 					}
 				}
+				
 				sweetalert(msg, url);
 			} catch (e) {
 				console.error("Invalid JSON response:", data);
@@ -264,7 +265,6 @@ function sublist_cu() {
 						$('#sublist_unique_id').val('');
 						$('.add_update_btn').text('Save');
 					}
-
 					sweetalert(msg);
 				} catch (err) {
 					console.error("Invalid JSON:", data);
@@ -440,8 +440,8 @@ function validate_quantity(input) {
 function copy_data() {
 
 	const screen_id = $('#copy_screen_id').val();
-	const district = $('#modal_district').val();
-	const month = $('#copy_month').val();
+	// const district = $('#modal_district').val();
+	const month = $('#month').val();
 
 	$.ajax({
 		url: sessionStorage.getItem('folder_crud_link'),
@@ -449,7 +449,7 @@ function copy_data() {
 		data: {
 			action: 'copy_record',
 			screen_unique_id: screen_id,
-			district: district,
+			// district: district,
 			month: month,
 			csrf_token: $('#csrf_token').val()
 		},

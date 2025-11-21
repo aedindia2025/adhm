@@ -535,15 +535,9 @@ switch ($action) {
         // $academic_year = sanitizeInput($_SESSION['academic_year']);
         $academic_year = sanitizeInput($_POST['academic_year']);
 
-        if ($_POST["entry_date"] == '') {
-            $entry_date = date('Y-m-d');
-        } else {
-            $entry_date = $_POST["entry_date"];
-        }
-
         // Prepare SQL statement
         $sql = "UPDATE $overall_table 
-                    SET entry_date=?, bill_no=?, hostel_unique_id=?, academic_year=?, district_unique_id=?, taluk_unique_id=?
+                    SET bill_no=?, hostel_unique_id=?, academic_year=?, district_unique_id=?, taluk_unique_id=?
                     WHERE stock_id=?";
 
         // Execute the statement
@@ -553,7 +547,7 @@ switch ($action) {
             die('MySQL prepare error: ' . $mysqli->error);
         }
 
-        $stmt->bind_param('sssssss', $entry_date, $bill_no, $hostel_name, $academic_year, $district, $taluk, $stock_id);
+        $stmt->bind_param('ssssss', $bill_no, $hostel_name, $academic_year, $district, $taluk, $stock_id);
 
         if ($stmt->execute()) {
             $status = "success";
@@ -659,14 +653,20 @@ switch ($action) {
         $unique_id = sanitizeInput($_POST["unique_id"]);
         $screen_unique_id = sanitizeInput($_POST["screen_unique_id"]);
         $product_category = product_category($item_name)[0]['product_category'];
+        
+        if ($_POST["entry_date"] == '') {
+            $entry_date = date('Y-m-d');
+        } else {
+            $entry_date = $_POST["entry_date"];
+        }
 
         $floatValue = floatval($qty);
         $stock_qty = number_format($floatValue, 2, '.', '');
 
         // Insert query
-        $sql = "INSERT INTO $overall_table (category_name, item_name, qty, unit, rate, amount, stock_id, screen_unique_id, unique_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO $overall_table (entry_date, category_name, item_name, qty, unit, rate, amount, stock_id, screen_unique_id, unique_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $mysqli->prepare($sql);
-        $stmt->bind_param("sssssssss", $product_category, $item_name, $stock_qty, $unit, $rate, $amount, $stock_id, $screen_unique_id, unique_id($prefix));
+        $stmt->bind_param("ssssssssss", $entry_date, $product_category, $item_name, $stock_qty, $unit, $rate, $amount, $stock_id, $screen_unique_id, unique_id($prefix));
 
         if ($stmt->execute()) {
             if ($unique_id) {
@@ -827,88 +827,16 @@ switch ($action) {
 
         break;
 
-    case 'get_unit_name':
-        $item_unique_id = $_POST['item_name'] ?? '';
-        $screen_unique_id = $_POST['screen_unique_id'] ?? '';
-        $hostel_id = $_SESSION['hostel_id'];
-        $currentMonthYear = date('Y-m');
-        if ($item_unique_id) {
-
-            $sql = "SELECT unit FROM item WHERE unique_id = ? AND is_delete = 0 LIMIT 1";
-            $stmt = $mysqli->prepare($sql);
-            $stmt->bind_param("s", $item_unique_id);
-            $stmt->execute();
-            $stmt->bind_result($unit);
-            $stmt->fetch();
-            $stmt->close();
-
-            $currentMonthYear = date('Y-m'); // e.g., "2025-11"
-
-            $sql_inward = "
-                            SELECT SUM(qty) AS total_qty
-                            FROM stock_inward
-                            WHERE item_name = ?
-                            AND is_delete = 0
-                            AND DATE_FORMAT(entry_date, '%Y-%m') = ?
-                            AND hostel_unique_id = ? OR screen_unique_id = ?
-                        ";
-
-            $stmt = $mysqli->prepare($sql_inward);
-            if (!$stmt) {
-                error_log("Prepare failed (inward): " . $mysqli->error);
-                echo json_encode(["unit" => $unit ?? '', "available_qty" => 0]);
-                exit;
-            }
-            $stmt->bind_param("ssss", $item_unique_id, $currentMonthYear, $hostel_id, $screen_unique_id);
-            $stmt->execute();
-            $stmt->bind_result($inwardqty);
-            $stmt->fetch();
-            $stmt->close();
-
-            $inwardqty = $inwardqty ?? 0;
-
-
-            // Same fix for issued qty
-            $sql_issued = "SELECT SUM(quantity) 
-               FROM monthly_indent_items 
-               WHERE hostel_id = ? 
-               AND item = ? 
-               AND is_delete = 0 
-               AND month_year = ?";
-
-            $stmt = $mysqli->prepare($sql_issued);
-            $stmt->bind_param("sss", $hostel_id, $item_unique_id, $currentMonthYear);
-            $stmt->execute();
-            $stmt->bind_result($issuedqty);
-            $stmt->fetch();
-            $stmt->close();
-
-            $issuedqty = $issuedqty ?? 0;
-
-            // print_r($issuedqty);
-            $availablenward = number_format($issuedqty - $inwardqty, 2, '.', '');
-
-
-            echo json_encode([
-                "unit" => $unit ?? '',
-                "available_qty" => $availablenward
-            ]);
-        } else {
-            echo json_encode([
-                "unit" => '',
-                "available_qty" => 0
-            ]);
-        }
-
-        break;
-
     // case 'get_unit_name':
+
     //     $item_unique_id = $_POST['item_name'] ?? '';
     //     $screen_unique_id = $_POST['screen_unique_id'] ?? '';
     //     $hostel_id = $_SESSION['hostel_id'];
     //     $currentMonthYear = date('Y-m');
+
     //     if ($item_unique_id) {
 
+    //         // 1. Unit
     //         $sql = "SELECT unit FROM item WHERE unique_id = ? AND is_delete = 0 LIMIT 1";
     //         $stmt = $mysqli->prepare($sql);
     //         $stmt->bind_param("s", $item_unique_id);
@@ -917,56 +845,192 @@ switch ($action) {
     //         $stmt->fetch();
     //         $stmt->close();
 
-    //         $item_name = $_POST['item_name'];
-    //         $hostel_id = $_SESSION['hostel_id'];
+    //         // 2. Total Inward Qty
+    //         $sql_inward = "
+    //         SELECT SUM(qty)
+    //         FROM stock_inward
+    //         WHERE item_name = ?
+    //           AND is_delete = 0
+    //           AND DATE_FORMAT(entry_date,'%Y-%m') = ?
+    //           AND (hostel_unique_id = ? OR screen_unique_id = ?)
+    //     ";
 
-    //         $where = "item_name = '" . $item_name . "' AND hostel_unique_id = '$hostel_id' and is_delete = 0";
-    //         $table_entry_sub = "stock_inward";
+    //         $stmt = $mysqli->prepare($sql_inward);
+    //         $stmt->bind_param("ssss", $item_unique_id, $currentMonthYear, $hostel_id, $screen_unique_id);
+    //         $stmt->execute();
+    //         $stmt->bind_result($inwardqty);
+    //         $stmt->fetch();
+    //         $stmt->close();
 
-    //         $columns = [
-    //             "(select sum(qty) from stock_inward where item_name = '" . $item_name . "' AND hostel_unique_id = '$hostel_id' and is_delete = 0 ) as in_qty",
-    //             "(select sum(qty) from stock_outward where item_name = '" . $item_name . "' AND hostel_unique_id = '$hostel_id' and is_delete = 0) as out_qty",
-    //         ];
+    //         $inwardqty = $inwardqty ?? 0;
 
-    //         $table_details = [
-    //             $table_entry_sub,
-    //             $columns
-    //         ];
+    //         // 3. Total Monthly Indent (issued qty)
+    //         $sql_indent = "
+    //         SELECT SUM(quantity)
+    //         FROM monthly_indent_items
+    //         WHERE hostel_id = ?
+    //           AND item = ?
+    //           AND is_delete = 0
+    //           AND month_year = ?
+    //     ";
 
-    //         $result_values = $pdo->select($table_details, $where);
+    //         $stmt = $mysqli->prepare($sql_indent);
+    //         $stmt->bind_param("sss", $hostel_id, $item_unique_id, $currentMonthYear);
+    //         $stmt->execute();
+    //         $stmt->bind_result($issuedqty);
+    //         $stmt->fetch();
+    //         $stmt->close();
 
-    //         // print_r($result_values);die();
+    //         $issuedqty = $issuedqty ?? 0;
 
-    //         if ($result_values->status) {
+    //         // 4. Remaining qty
+    //         $remaining_qty = $issuedqty - $inwardqty;
+    //         if ($remaining_qty < 0)
+    //             $remaining_qty = 0;
 
-    //             $result_values = $result_values->data;
+    //         $remaining_qty = number_format($remaining_qty, 2, '.', '');
 
-    //             $format_con_qty = number_format((float) $result_values[0]["out_qty"], 3, '.', '');
-    //             $item_in_qty = $result_values[0]["in_qty"];
-    //             $rem_qty = $item_in_qty - $format_con_qty;
-
-    //             if (fmod($rem_qty, 1) == 0) {
-    //                 // It's a whole number (no decimal part)
-    //                 $res_qty = (int) $rem_qty; // show as 5
-    //             } else {
-    //                 // It's a decimal value
-    //                 $res_qty = number_format((float) $rem_qty, 3, '.', ''); // show as 5.250
-    //             }
-
+    //         // 5. Exact percentage
+    //         if ($issuedqty > 0) {
+    //             $percent = ($remaining_qty / $issuedqty) * 100;
+    //         } else {
+    //             $percent = 0;
     //         }
 
+    //         $percent = max(0, $percent);
+    //         $percent = number_format($percent, 2);  // EXACT %
+
+    //         // 6. Colors based on thresholds
+    //         if ($percent <= 5)
+    //             $color = "red";
+    //         elseif ($percent <= 10)
+    //             $color = "#ff6600";
+    //         elseif ($percent <= 20)
+    //             $color = "#ffcc00";
+    //         elseif ($percent <= 25)
+    //             $color = "#f4e04d";
+    //         elseif ($percent <= 50)
+    //             $color = "green";
+    //         else
+    //             $color = "darkgreen";
+
     //         echo json_encode([
-    //             "unit" => $unit ?? '',
-    //             "available_qty" => $res_qty
+    //             "unit" => $unit,
+    //             "available_qty" => $remaining_qty,
+    //             "percent" => $percent,           // 👈 EXACT PERCENTAGE
+    //             "msg" => $percent . "% remaining", // 👈 Display only percent
+    //             "color" => $color
     //         ]);
+
     //     } else {
     //         echo json_encode([
-    //             "unit" => '',
-    //             "available_qty" => 0
+    //             "unit" => "",
+    //             "available_qty" => 0,
+    //             "percent" => 0,
+    //             "msg" => "0% remaining",
+    //             "color" => "red"
     //         ]);
     //     }
 
     //     break;
+
+    case 'get_unit_name':
+
+        $item_unique_id = $_POST['item_name'] ?? '';
+        $screen_unique_id = $_POST['screen_unique_id'] ?? '';
+        $hostel_id = $_SESSION['hostel_id'];
+
+        if (!$item_unique_id) {
+            echo json_encode([
+                "unit" => '',
+                "available_qty" => 0,
+                "msg" => "",
+                "color" => "black"
+            ]);
+            exit;
+        }
+
+        // 1. Get unit & item name
+        $sql = "SELECT item, unit FROM item WHERE unique_id = ? AND is_delete = 0 LIMIT 1";
+        $stmt = $mysqli->prepare($sql);
+        $stmt->bind_param("s", $item_unique_id);
+        $stmt->execute();
+        $stmt->bind_result($item_name, $unit);
+        $stmt->fetch();
+        $stmt->close();
+
+        $currentMonthYear = date('Y-m');
+
+        // echo $item_unique_id.' - '. $currentMonthYear.' - '. $hostel_id.' - '. $screen_unique_id;
+        // die();
+
+        // 2. Total inward quantity for this month for this hostel
+        $sql_inward = "
+        SELECT SUM(qty) AS total_qty
+        FROM stock_inward
+        WHERE item_name = ?
+          AND is_delete = 0
+          AND DATE_FORMAT(entry_date, '%Y-%m') = ?
+          AND (hostel_unique_id = ? OR screen_unique_id = ?)
+    ";
+
+        $stmt = $mysqli->prepare($sql_inward);
+        $stmt->bind_param("ssss", $item_unique_id, $currentMonthYear, $hostel_id, $screen_unique_id);
+        $stmt->execute();
+        $stmt->bind_result($inwardqty);
+        $stmt->fetch();
+        $stmt->close();
+
+        $inwardqty = $inwardqty ?? 0;
+
+        // 3. Total issued quantity (monthly indent)
+        $sql_issued = "
+                        SELECT SUM(quantity)
+                        FROM monthly_indent_items
+                        WHERE hostel_id = ?
+                        AND item = ?
+                        AND is_delete = 0
+                        AND month_year = ?
+                    ";
+
+        $stmt = $mysqli->prepare($sql_issued);
+        $stmt->bind_param("sss", $hostel_id, $item_unique_id, $currentMonthYear);
+        $stmt->execute();
+        $stmt->bind_result($issuedqty);
+        $stmt->fetch();
+        $stmt->close();
+
+        $issuedqty = $issuedqty ?? 0;
+
+        // 4. Remaining monthly indent
+        $remaining_qty = max(0, $issuedqty - $inwardqty);
+
+        // 5. Remaining percentage
+        $percent = ($issuedqty > 0) ? ($remaining_qty / $issuedqty) * 100 : 0;
+
+        // 6. Color rules
+        if ($percent > 50) {
+            $color = "green";
+        } elseif ($percent > 25) {
+            // $color = "yellow";
+            $color = "#fb9600ff";
+        } else {
+            $color = "red";
+        }
+
+        // 7. Prepare text output
+        $remaining_qty_fmt = number_format($remaining_qty, 2);
+        $display_text = "{$item_name} - {$unit} - Remaining: {$remaining_qty_fmt} {$unit}";
+
+        echo json_encode([
+            "unit" => $unit,
+            "available_qty" => $remaining_qty_fmt,
+            "msg" => $display_text,
+            "color" => $color
+        ]);
+        exit;
+
+        break;
 
 
     case 'sub_delete':

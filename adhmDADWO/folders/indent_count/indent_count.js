@@ -114,6 +114,23 @@ function approve() {
 	const base_count = $('#base_count').val();
 	const month_year = $('#month_year').val();
 
+
+
+if (!approved_count || approved_count.trim() === "") {
+        Swal.fire({
+            icon: 'warning',
+           title: 'Warning',
+    text: 'Please provide Approved Count before submitting.',
+            showConfirmButton: true,
+            timer: 6000,
+            timerProgressBar: true,
+        });
+        return; // stop execution
+    }
+
+
+
+
 	$.ajax({
 		url: sessionStorage.getItem('folder_crud_link'),
 		method: 'POST',
@@ -173,6 +190,18 @@ function reject() {
 	const reject_reason = $('#reject_reason').val();
 	const month_year = $('#month_year_rej_val').val();
 
+if (!reject_reason || reject_reason.trim() === "") {
+        Swal.fire({
+            icon: 'warning',
+           title: 'Warning',
+    text: 'Please provide remarks before submitting.',
+            showConfirmButton: true,
+            timer: 6000,
+            timerProgressBar: true,
+        });
+        return; // stop execution
+    }
+	
 	$.ajax({
 		url: sessionStorage.getItem('folder_crud_link'),
 		method: 'POST',
